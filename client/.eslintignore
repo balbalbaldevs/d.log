@@ -1,0 +1,4 @@
+src/registerServiceWorker.js
+
+# ignore test files
+src/**/*.test.js
