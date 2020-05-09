@@ -1,0 +1,51 @@
+.style-container {
+  --pos-x: flex-start;
+  --pos-y: flex-start;
+
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: var(--pos-x);
+  align-items: var(--pos-y);
+}
+
+.column {
+  flex-direction: column;
+}
+
+// position styles
+.position-left-center {
+  --pos-y: center;
+}
+
+.position-left-bottom {
+  --pos-y: flex-end;
+}
+
+.position-center-top {
+  --pos-x: center;
+}
+
+.position-center-center {
+  --pos-x: center;
+  --pos-y: center;
+}
+
+.position-center-bottom {
+  --pos-x: center;
+  --pos-y: flex-end;
+}
+
+.position-right-top {
+  --pos-x: flex-end;
+}
+
+.position-right-center {
+  --pos-x: flex-end;
+  --pos-y: center;
+}
+
+.position-right-bottom {
+  --pos-x: flex-end;
+  --pos-y: flex-end;
+}
