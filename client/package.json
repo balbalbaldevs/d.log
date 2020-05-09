@@ -11,7 +11,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn test && echo SUCCESS"
+      "pre-push": "yarn test && echo SUCCESS",
+      "prepare-commit-msg": "cd .. && ./client/scripts/add_issue_number_into_commit_msg.sh $HUSKY_GIT_PARAMS"
     }
   },
   "scripts": {
