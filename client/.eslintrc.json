@@ -1,14 +1,15 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "airbnb",
-    "prettier/react",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["airbnb", "prettier/react", "plugin:react/recommended"],
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": ["error"],
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off",
+    "operator-linebreak": "off",
+    "object-curly-newline": "off",
+    // react
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off"
   },
   "parser": "babel-eslint",
   "env": {
