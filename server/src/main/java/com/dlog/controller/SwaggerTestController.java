@@ -31,10 +31,10 @@ public class SwaggerTestController {
 		}
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("1", "rowId : 1," + str);
-		map.put("2", "rowId : 2," + str);
-		map.put("3", "rowId : 3," + str);
-		map.put("4", "rowId : 4," + str);
+		map.put("1", "rowId1 " + str);
+		map.put("2", "rowId2 " + str);
+		map.put("3", "rowId3 " + str);
+		map.put("4", "rowId4 " + str);
 		return map;
 	}
 	
@@ -48,10 +48,10 @@ public class SwaggerTestController {
 	public String testDetail(@PathVariable String rowId) {
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("1", "rowId : 1, 첫번째");
-		map.put("2", "rowId : 2, 두번째");
-		map.put("3", "rowId : 3, 세번째");
-		map.put("4", "rowId : 4, 네번째");
+		map.put("1", "rowId1 첫번째");
+		map.put("2", "rowId2 두번째");
+		map.put("3", "rowId3 세번째");
+		map.put("4", "rowId4 네번째");
 		map.get(rowId);
 		return String.valueOf(map.get(rowId));
 	}
@@ -81,17 +81,17 @@ public class SwaggerTestController {
 	@ResponseBody
 	public String testDel(@RequestParam String rowId) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("1", "rowId : 1, 첫번쨰");
-		map.put("2", "rowId : 2, 두번쨰");
-		map.put("3", "rowId : 3, 세번쨰");
-		map.put("4", "rowId : 4, 네번쨰");
+		map.put("1", "rowId1 첫번째");
+		map.put("2", "rowId2 두번째");
+		map.put("3", "rowId3 세번째");
+		map.put("4", "rowId4 네번째");
 		map.remove(rowId);
 
 		if(map.get(rowId) == null || map.get(rowId) == ""){
 			return rowId + "번이 삭제 되었습니다";
 		}
 		
-		return "삭제 안됨, rowId 1~4까지 있습니다.";
+		return "rowId 1~4까지 있습니다";
 	}
 	/**
 	 * POST 테스트
