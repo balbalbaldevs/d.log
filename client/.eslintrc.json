@@ -3,11 +3,13 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": ["error"],
+
+    "consistent-return": "off",
     "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "operator-linebreak": "off",
     "object-curly-newline": "off",
-    // react
+
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off"
   },

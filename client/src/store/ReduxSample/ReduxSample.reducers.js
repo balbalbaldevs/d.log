@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { ReduxSampleActions } from './ReduxSample.actions';
+import ReduxSampleActions from './ReduxSample.actions';
 
 export const initialState = {
   sampleUsers: [],

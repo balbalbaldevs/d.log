@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../index';
-import { ReduxSampleActions } from '../../redux/actions';
+import { ReduxSampleActions } from '../../store/actions';
 
 // TODO redux 쓰는 법 익히게 되면 제거
 const ReduxSample = () => {

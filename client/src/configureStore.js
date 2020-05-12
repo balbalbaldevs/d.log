@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import rootReducer from './redux';
+import rootReducer from './store';
 import loggerMiddleware from './middlewares/logger';
 import monitorReducerEnhancer from './enhancers/monitorReducers';
 
@@ -12,9 +12,9 @@ export default function configureAppStore(preloadedState) {
   });
 
   if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept('./redux', () => {
+    module.hot.accept('./store', () => {
       // eslint-disable-next-line global-require
-      const newRootReducer = require('./redux').default;
+      const newRootReducer = require('./store').default;
       store.replaceReducer(newRootReducer);
     });
   }
