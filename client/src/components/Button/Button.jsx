@@ -8,4 +8,8 @@ const Button = ({ text, ...rest }) => (
   </button>
 );
 
+Button.propTypes = {
+  text: string.isRequired,
+};
+
 export default Button;

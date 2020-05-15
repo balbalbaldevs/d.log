@@ -1,5 +1,5 @@
 Button example:
 
 ```js
-<Button children="Button" />
+<Button text="Button" />
 ```
