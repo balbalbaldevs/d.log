@@ -1,5 +1,3 @@
-// const path = require('path');
-
 module.exports = {
   title: 'd.log UI guide',
   components: 'src/components/**/*.jsx',
