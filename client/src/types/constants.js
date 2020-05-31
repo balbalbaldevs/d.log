@@ -1,4 +1,8 @@
 // enums
+export const COLORS = {
+  WHITE: 'white',
+  PRIMARY: 'primary',
+};
 
 export const DIRECTION = {
   HORIZONTAL: 'horizontal',
