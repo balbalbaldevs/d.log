@@ -1,5 +1,5 @@
 import { oneOf } from 'prop-types';
-import { DIRECTION, POSX, POSY } from './constants';
+import { DIRECTION, POSX, POSY, PLACEMENT } from './constants';
 
 export const Direction = oneOf([DIRECTION.HORIZONTAL, DIRECTION.VERTICAL]);
 
@@ -7,3 +7,18 @@ export const Position = {
   posX: oneOf([POSX.LEFT, POSX.RIGHT, POSX.CENTER]),
   posY: oneOf([POSY.TOP, POSY.BOTTOM, POSY.CENTER]),
 };
+
+export const Placement = oneOf([
+  PLACEMENT.TOP,
+  PLACEMENT.TOP_LEFT,
+  PLACEMENT.TOP_RIGHT,
+  PLACEMENT.RIGHT,
+  PLACEMENT.RIGHT_TOP,
+  PLACEMENT.RIGHT_BOTTOM,
+  PLACEMENT.BOTTOM,
+  PLACEMENT.BOTTOM_LEFT,
+  PLACEMENT.BOTTOM_RIGHT,
+  PLACEMENT.LEFT,
+  PLACEMENT.LEFT_TOP,
+  PLACEMENT.LEFT_BOTTOM,
+]);
