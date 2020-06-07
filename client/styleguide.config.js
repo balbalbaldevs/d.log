@@ -13,7 +13,7 @@ module.exports = {
     },
     {
       name: 'Components',
-      components: 'src/components/**/*.tsx',
+      components: 'src/components/*/*.tsx',
       ignore: 'src/components/Sample/*.tsx',
       exampleMode: 'expand',
       usageMode: 'expand',
