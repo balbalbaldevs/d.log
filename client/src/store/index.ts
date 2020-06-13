@@ -1,7 +1,7 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import { combineReducers, Reducer } from '@reduxjs/toolkit';
 import reduxSampleReducer from './ReduxSample/ReduxSample.reducers';
 
-const rootReducer = combineReducers({
+const rootReducer: Reducer = combineReducers({
   sample: reduxSampleReducer,
 });
 
