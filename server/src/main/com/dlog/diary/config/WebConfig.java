@@ -1,4 +1,4 @@
-package com.dlog.config;
+package dlog.diary.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

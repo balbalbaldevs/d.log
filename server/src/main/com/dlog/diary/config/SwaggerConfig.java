@@ -1,4 +1,5 @@
-package com.dlog.config;
+package dlog.diary.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
