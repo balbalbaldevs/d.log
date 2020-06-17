@@ -1,0 +1,21 @@
+$minSize: 4;
+$maxSize: 24;
+
+.icon {
+  display: flex;
+  align-items: center;
+  width: 24px;
+  height: auto;
+
+  img {
+    width: inherit;
+    height: inherit;
+    font-size: 12px;
+  }
+
+  @for $i from $minSize to $maxSize {
+    &.icon-size-#{$i} {
+      width: #{$i}px;
+    }
+  }
+}
