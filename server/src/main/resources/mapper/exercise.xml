@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dlog.diary.exercise.ExerDiaryMapper">
+
+	<insert id="exerDiaryInst" parameterType="dlog.diary.exercise.ExerDiary">
+		INSERT INTO 
+		EXER_DIARY (
+						userId
+						,ed_gr_id
+						,title
+						,exer_nm
+						,exer_time
+						,consum_kcal
+						,ed_flag
+						,reg_dt
+		)VALUES(
+						#{userId}
+						,#{edGrId}
+						,#{title}
+						,#{exerNm}
+						,#{exerTime}
+						,#{consumKcal}
+						,#{edFlag}
+						,NOW()
+		)
+	</insert>
+	
+	<select id="exerDiaryList" parameterType="map" resultType="map">
+		SELECT * FROM EXER_DIARY
+	</select>
+
+</mapper>
