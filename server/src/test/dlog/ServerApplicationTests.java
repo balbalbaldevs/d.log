@@ -1,25 +1,23 @@
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import dlog.diary.test.testMapper;
-import dlog.diary.test.testVO;
+import dlog.diary.sample.SampleMapper;
+import dlog.diary.sample.SampleVO;
 
 @SpringBootTest
-@Transactional
 public class ServerApplicationTests {
 
 	@Autowired
-	testMapper tMapper;
+	SampleMapper sMapper;
 	
 	@Test
 	public void dbConTest() {
-		testVO tv = new testVO();
-		tv.setAge("100");
-		tv.setNm("심청이");
+		SampleVO sv = new SampleVO();
+		sv.setAge("100");
+		sv.setNm("심청이");
 		
-		System.out.println("db 커넥션 테스트 ====> "+tMapper.getTestData(tv));
+		System.out.println("db 커넥션 테스트 ====> " + sMapper.getSampleData(sv));
 	}
 
 }

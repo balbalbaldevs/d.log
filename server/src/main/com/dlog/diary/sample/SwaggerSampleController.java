@@ -1,4 +1,4 @@
-package dlog.diary.test;
+package dlog.diary.sample;
 
 import java.util.Map;
 
@@ -13,29 +13,29 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 
 @RestController
-@Api(value="swag-rest-controller", description = "SwaggerTestContoller")
-public class SwaggerTestController {
+@Api(value="swag-rest-controller", description = "SwaggerSampleController")
+public class SwaggerSampleController {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	testMapper tMapper;
+	SampleMapper sMapper;
 	
 	/**
 	 * GET
 	 * @return
 	 */
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/sample", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> test() {
+	public Map<String, Object> sample() {
+		SampleVO sv = new SampleVO();
+		sv.setAge("100");
+		sv.setNm("심청이");
 		
-		testVO tv = new testVO();
-		tv.setAge("100");
-		tv.setNm("심청이");
+		Map<String, Object> map = sMapper.getSampleData(sv);
 		
-		Map<String, Object> map = tMapper.getTestData(tv);
+		logger.info("db 테스트 ====> " + map);
 		
-		logger.info("db 테스트 ====> "+map);
 		return map;
 	}
 	

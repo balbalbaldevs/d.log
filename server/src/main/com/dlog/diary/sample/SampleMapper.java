@@ -1,4 +1,4 @@
-package dlog.diary.test;
+package dlog.diary.sample;
 
 import java.util.Map;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface testMapper {
+public interface SampleMapper {
 
-	public abstract Map<String, Object> getTestData(testVO vo);
+	public abstract Map<String, Object> getSampleData(SampleVO vo);
 	
 }
