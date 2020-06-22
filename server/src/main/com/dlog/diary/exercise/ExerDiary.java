@@ -1,6 +1,5 @@
 package dlog.diary.exercise;
 
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -8,6 +7,7 @@ import lombok.Data;
 @Alias("exerDiary")
 @Data
 public class ExerDiary {
+	
 	//운동일기 인덱스
 	private int edId;
 	//일기 그룹id

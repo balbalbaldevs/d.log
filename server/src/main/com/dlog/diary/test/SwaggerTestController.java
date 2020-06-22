@@ -1,7 +1,5 @@
 package dlog.diary.test;
 
-
-
 import java.util.Map;
 
 import org.slf4j.Logger;

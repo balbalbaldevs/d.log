@@ -13,4 +13,5 @@ public interface ExerDiaryMapper {
 	//일기 추가
 	public abstract Integer exerDiaryInst(ExerDiary ed) throws Exception;
 	public abstract List<Map<String,Object>> exerDiaryList(Map<String, Object> map) throws Exception;
+	
 }
