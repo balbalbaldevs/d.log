@@ -1,4 +1,4 @@
-package dlog.diary;
+package com.dlog.diary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package dlog.diary.config;
+package com.dlog.diary.config;
 
 import javax.sql.DataSource;
 
@@ -26,7 +26,7 @@ public class MyBatisConfig {
     
     @Bean
     public SqlSessionTemplate sqlSession (SqlSessionFactory sqlSessionFactory) {
-        
         return new SqlSessionTemplate(sqlSessionFactory);
     }
+    
 }

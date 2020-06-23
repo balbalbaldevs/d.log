@@ -1,5 +1,4 @@
-package dlog.diary.test;
-
+package com.dlog.diary.sample;
 
 import org.apache.ibatis.type.Alias;
 
@@ -7,7 +6,8 @@ import lombok.Data;
 
 @Alias("test")
 @Data
-public class testVO {
+public class SampleVO {
+	
 	private String nm;
 	private String age;
 	

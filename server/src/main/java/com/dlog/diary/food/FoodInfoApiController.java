@@ -1,4 +1,4 @@
-package dlog.diary.food;
+package com.dlog.diary.food;
 
 import java.net.URL;
 import java.net.URLEncoder;
@@ -108,4 +108,5 @@ public class FoodInfoApiController {
 		}
 		return list;
 	}
+	
 }

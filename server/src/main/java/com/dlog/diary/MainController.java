@@ -1,4 +1,4 @@
-package dlog.diary;
+package com.dlog.diary;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
