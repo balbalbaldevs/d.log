@@ -1,4 +1,4 @@
-package dlog.diary.config;
+package com.dlog.diary.config;
 
 import javax.sql.DataSource;
 

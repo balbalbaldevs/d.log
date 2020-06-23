@@ -1,4 +1,4 @@
-package dlog.diary.exercise;
+package com.dlog.diary.exercise;
 
 import org.apache.ibatis.type.Alias;
 

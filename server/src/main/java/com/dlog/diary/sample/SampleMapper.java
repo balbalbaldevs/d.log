@@ -1,4 +1,4 @@
-package dlog.diary.sample;
+package com.dlog.diary.sample;
 
 import java.util.Map;
 

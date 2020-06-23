@@ -1,4 +1,4 @@
-package dlog.diary.exercise;
+package com.dlog.diary.exercise;
 
 import java.util.HashMap;
 import java.util.List;
