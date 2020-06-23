@@ -1,12 +1,17 @@
+package com.dlog.diary.sample;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import dlog.diary.sample.SampleMapper;
-import dlog.diary.sample.SampleVO;
+import com.dlog.diary.sample.SampleMapper;
+import com.dlog.diary.sample.SampleVO;
 
 @SpringBootTest
-public class ServerApplicationTests {
+@RunWith(SpringRunner.class)
+public class SwaggerSampleControllerTest {
 
 	@Autowired
 	SampleMapper sMapper;
