@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
 function actionWithPayload<T>() {
-  return (payload?: T) => ({ payload });
+  return (payload?: T): { payload: T | undefined } => ({ payload });
 }
 
 export const createStandardAction = <T>(action: string) => createAction(action, actionWithPayload<T>());

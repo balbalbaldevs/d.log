@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import ReduxSampleActions, { GET_SAMPLE_USERS, TRIGGER_BTN_CLICK, RESET } from './ReduxSample.actions';
+import { ReduxSampleActions } from '../actions';
 import { ReduxSampleState } from './ReduxSample.types';
 
 export const initialState: ReduxSampleState = {
@@ -14,17 +14,16 @@ export const initialState: ReduxSampleState = {
 // TODO createReducer 타입 추가
 const reduxSampleReducer = createReducer(initialState, {
   // TODO createAsyncAction helper 생성 후 fulfilled 상태 타입 확인
-  [ReduxSampleActions.getSampleUsers.fulfilled]: (state, { payload: userData }) => {
-    console.log(userData);
+  [ReduxSampleActions.getSampleUsers.fulfilled.type]: (state: ReduxSampleState, { payload: userData }) => {
     state.sampleUsers = userData;
   },
-  [TRIGGER_BTN_CLICK]: (state, action) => {
+  [ReduxSampleActions.triggerBtnClick.type]: (state: ReduxSampleState, action) => {
     const { message } = action.payload;
 
     state.sampleButton.message = message;
     state.sampleButton.loading = true;
   },
-  [RESET]: () => initialState,
+  [ReduxSampleActions.reset.type]: () => initialState,
 });
 
 export default reduxSampleReducer;

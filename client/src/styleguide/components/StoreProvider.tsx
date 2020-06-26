@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import configureStore from '../../configureStore';
+import { configureAppStore as configureStore } from '../../store';
 
 const store = configureStore();
 
-const StoreProvider = (props) => <Provider {...props} store={store} />;
+const StoreProvider: React.FC = ({ ...rest }) => <Provider {...rest} store={store} />;
 
 export default StoreProvider;

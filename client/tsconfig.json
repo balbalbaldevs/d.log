@@ -13,8 +13,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+
     "jsx": "react"
   },
+  "interface-name": [true, "always-prefix"],
   "include": ["src"],
   "exclude": ["./node_modules", "./public", "./build"]
 }

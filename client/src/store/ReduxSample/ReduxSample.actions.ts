@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createStandardAction } from '../action-helpers';
 import { UserSampleState } from './ReduxSample.types';
 import { AppState } from '../store.types';
-import { AppDispatch } from '../../configureStore';
+import { AppDispatch } from '../index';
 
 interface ThunkAPI {
   state: AppState;

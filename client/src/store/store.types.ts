@@ -1,3 +1,5 @@
-import rootReducer from './index';
+import { ReduxSampleState } from './ReduxSample/ReduxSample.types';
 
-export type AppState = ReturnType<typeof rootReducer>;
+export interface AppState {
+  sample: ReduxSampleState;
+}
