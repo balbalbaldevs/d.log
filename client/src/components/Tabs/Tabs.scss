@@ -1,0 +1,71 @@
+
+.tabs  {
+
+  &.ant-tabs {
+    
+    .ant-tabs-nav > div {
+      display: flex;
+      align-items: stretch;
+
+      > .ant-tabs-tab {
+        height: auto;
+        padding: 5px 10px;
+
+        .tab {
+          display: flex;
+          align-items: center;
+          height: 100%;
+
+          // Tab Text
+          span {
+            height: 100%;
+          }
+
+          // iconPlacement
+          &.is-left {
+          flex-flow: row; 
+  
+            .icon {
+              margin-right: 3px;
+            }
+          }
+  
+          &.is-right {
+          flex-flow: row-reverse; 
+  
+          .icon {
+              margin-left: 3px;
+            }
+          }
+  
+          &.is-top {
+            flex-flow: column; 
+  
+            .icon {
+              margin-bottom: 3px;
+            }
+          }
+  
+          &.is-bottom {
+            flex-flow: column-reverse; 
+  
+            .icon {
+              margin-top: 3px;
+            }
+          }
+        }
+        
+        // disabled tab icon
+        &[aria-disabled=true] {
+          .icon{
+            opacity: 0.3;
+          }
+        }
+      }
+    }
+  }
+}
+
+.tabpanel {
+  padding: 10px;
+}
