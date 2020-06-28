@@ -16,3 +16,9 @@ export const POSY = {
   BOTTOM: 'bottom',
   CENTER: 'center',
 };
+
+export const PROGRESS_TYPE = {
+  LINE: 'line',
+  CIRCLE: 'circle',
+  DASHBOARD: 'dashboard',
+};
