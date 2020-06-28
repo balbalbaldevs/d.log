@@ -12,11 +12,11 @@ export const PAGE_URL = {
 
 const ROUTES = [{ path: PAGE_URL.HOME, exact: true, component: Home }];
 
-const Router = () => (
+const Router: React.FC = () => (
   <BrowserRouter>
     <Switch>
       <Redirect exact path={PAGE_URL.ROOT} to={PAGE_URL.HOME} />
-      {ROUTES.map(route => (
+      {ROUTES.map((route) => (
         <Route {...route} key={route.path} />
       ))}
     </Switch>

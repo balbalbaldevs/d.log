@@ -2,3 +2,5 @@ src/registerServiceWorker.js
 
 # ignore test files
 src/**/*.test.js
+config-overrides.js
+styleguide.config.js
