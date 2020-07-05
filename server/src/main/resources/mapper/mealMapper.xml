@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlog.diary.meal.mapper.MealMapper">
+	<insert id="insertMeal" parameterType="com.dlog.diary.common.domain.meal.Meal">
+		INSERT INTO meal (user_id, reg_dt, total_calorie)
+		VALUES(userId, STR_TO_DATE(#{regDtForm}, '%Y%m%d'), #{totalCalorie})
+	</insert>
+	<insert id="insertMealDetail" parameterType="com.dlog.diary.common.domain.meal.MealDetail">
+	</insert>
+	<insert id="insertFood" parameterType="com.dlog.diary.common.domain.meal.Food">
+	</insert>
+	<select id="selectMeal" parameterType="string" resultType="com.dlog.diary.common.domain.meal.Meal" >
+		SELECT meal_id, user_id, reg_dt, total_calorie, DATE_FORMAT(reg_dt, '%Y%m%d') AS 'regDtForm'
+		  FROM meal
+		 WHERE DATE_FORMAT(reg_dt, '%Y%m%d') = #{date}
+	</select>
+</mapper>
