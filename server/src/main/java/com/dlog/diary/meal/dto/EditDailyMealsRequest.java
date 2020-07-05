@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @ApiModel
-public class DailyMealsRequest {
+public class EditDailyMealsRequest {
 	// TODO Validation 추가
 }
