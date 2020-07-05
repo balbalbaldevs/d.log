@@ -37,4 +37,5 @@ module.exports = {
       return true;
     },
   }).parse,
+  webpackConfig: require('react-scripts/config/webpack.config'),
 };
