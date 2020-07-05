@@ -39,6 +39,7 @@ public class MealService {
 		return dailyMeals;
 	}
 
+	// TODO Transaction 처리에 따라서 분기처리 할지 호출만 할지 정해야함.
 	public boolean editMeals(Object object) {
 		mealMapper.updateMealDiary(null);
 		mealMapper.updateMealDetail(null);
@@ -46,6 +47,7 @@ public class MealService {
 		return true;
 	}
 
+	// TODO Transaction 처리에 따라서 분기처리 할지 호출만 할지 정해야함.
 	public boolean removeMeals(String date) {
 		boolean isSuccess = mealMapper.deleteMealDiary(date) > 0;
 		if (isSuccess) {
