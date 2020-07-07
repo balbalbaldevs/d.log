@@ -39,6 +39,7 @@ public class MealController {
 
 		mealService.getDailyMeals(date);
 		// TODO transfer dailyMeals to response
+		// TODO logging response
 
 		return mockService.getDailyMealsMockData(date);
 	}
@@ -57,6 +58,7 @@ public class MealController {
 	@PostMapping("/diaries/{date}/meals")
 	@ApiOperation(value = "식단 등록", notes = "식단 등록.")
 	public CommonResponse saveMeals(@RequestBody DailyMealsRequest dayilyMeals) {
+		// TODO logging request
 		boolean isSuccess = mealService.saveMeals(null);
 		CommonResponse response = new CommonResponse();
 		if (isSuccess) {
