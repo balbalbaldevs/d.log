@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 @ApiModel
 public class CommonResponse {
-	@ApiModelProperty(required = true, value = "결과 코드", example = "201")
+	@ApiModelProperty(required = true, value = "결과 코드", example = "200")
 	private int code;
-	@ApiModelProperty(required = true, value = "결과 메세지", example = "등록되었습니다.")
+	@ApiModelProperty(required = true, value = "결과 메세지", example = "처리 되었습니다.")
 	private String message;
 
 	public void fail(int code, String message) {

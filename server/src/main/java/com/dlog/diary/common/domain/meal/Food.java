@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class Food {
-	private int foodId;
-	private int mealDetailId;
+	private int foodSequence;
+	private int mealDiarySequence;
 	private String foodName;
-	private String calorie;
+	private int calorie;
 	private String carbs;
 	private String protein;
 	private String fat;

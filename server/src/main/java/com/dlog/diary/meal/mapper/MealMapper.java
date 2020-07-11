@@ -3,38 +3,41 @@ package com.dlog.diary.meal.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.dlog.diary.common.domain.meal.DailyMealDetail;
+import com.dlog.diary.common.domain.Diary;
+import com.dlog.diary.common.domain.meal.DailyMeals;
 import com.dlog.diary.common.domain.meal.Food;
-import com.dlog.diary.common.domain.meal.Meal;
-import com.dlog.diary.common.domain.meal.MealDetail;
+import com.dlog.diary.common.domain.meal.MealDiary;
 
 @Mapper
 @Repository
 public interface MealMapper {
 
-	int insertMealDiary(Meal meal);
+	int insertDiary(Diary diary);
 
-	int insertMealDetail(MealDetail mealDetail);
+	int insertMealDiary(MealDiary mealDiary);
 
 	int insertFood(Food food);
 
-	Meal selectMealDiary(String date);
+	Diary selectDiary(@Param(value = "uniqueId") String uniqueId, @Param(value = "diaryDay") String diaryDay);
 
-	List<DailyMealDetail> selectMealDetail(String date);
+	List<DailyMeals> selectDailyMeals(@Param(value = "uniqueId") String uniqueId,
+			@Param(value = "diaryDay") String diaryDay);
 
-	List<Food> selectFood(String date);
+	List<Food> selectFoods(int mealDiaryId);
 
-	int updateMealDiary(Object object);
+	int updateDiary(@Param(value = "uniqueId") String uniqueId, @Param(value = "diaryDay") String diaryDay);
 
-	int updateMealDetail(Object object);
+	int updateMealDiary(DailyMeals dailyMeals);
 
-	int updateFood(Object object);
+	int updateFood(Food food);
 
-	int deleteMealDiary(String date);
+	int deleteDiary(@Param(value = "uniqueId") String uniqueId, @Param(value = "diaryDay") String diaryDay);
 
-	int deleteMealDetail(String date);
+	int deleteMealDiaries(@Param(value = "uniqueId") String uniqueId, @Param(value = "diaryDay") String diaryDay);
 
-	int deleteFood(String date);
+	int deleteFoods(@Param(value = "uniqueId") String uniqueId, @Param(value = "diaryDay") String diaryDay);
+
 }
