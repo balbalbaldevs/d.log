@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dlog.diary.common.dto.CommonResponse;
-import com.dlog.diary.user.dto.UserResponse;
+import com.dlog.diary.user.dto.UserDto;
 import com.dlog.diary.user.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -28,7 +28,7 @@ public class UserController {
 
 	@GetMapping("/users/{userId}")
 	@ApiOperation(value = "사용자 조회", notes = "사용자 조회")
-	public UserResponse getUser(
+	public UserDto getUser(
 			@ApiParam(name = "userId", value = "사용자 ID", required = true, example = "1") @PathVariable("userId") String userId) {
 		// TODO transfer user to response
 		// TODO logging response
@@ -40,10 +40,10 @@ public class UserController {
 
 	@PostMapping("/users")
 	@ApiOperation(value = "사용자 생성", notes = "사용자 생성")
-	public CommonResponse saveUser(@RequestBody UserResponse userResonse) {
+	public CommonResponse saveUser(@RequestBody UserDto userDto) {
 		// TODO transfer userResonse to userRequest
 		// TODO logging request
-		boolean isSuccess = userService.saveUser(userResonse);
+		boolean isSuccess = userService.saveUser(userDto);
 		CommonResponse response = new CommonResponse();
 		if (isSuccess) {
 			response.ok(201, "등록 되었습니다.");
@@ -55,10 +55,10 @@ public class UserController {
 
 	@PutMapping("/users/{userId}")
 	@ApiOperation(value = "사용자 수정", notes = "사용자 수정")
-	public CommonResponse eidtUser(@RequestBody UserResponse userResonse) {
+	public CommonResponse eidtUser(@RequestBody UserDto userDto) {
 		// TODO transfer userResonse to userRequest
 		// TODO logging request
-		boolean isSuccess = userService.editUser(userResonse);
+		boolean isSuccess = userService.editUser(userDto);
 		CommonResponse response = new CommonResponse();
 		if (isSuccess) {
 			response.ok();

@@ -9,7 +9,7 @@ import org.springframework.util.ObjectUtils;
 import com.dlog.diary.common.domain.user.Goal;
 import com.dlog.diary.common.domain.user.User;
 import com.dlog.diary.common.types.GoalStateType;
-import com.dlog.diary.user.dto.UserResponse;
+import com.dlog.diary.user.dto.UserDto;
 import com.dlog.diary.user.mapper.GoalMapper;
 import com.dlog.diary.user.mapper.UserMapper;
 
@@ -26,17 +26,17 @@ public class UserService {
 	}
 	
 	// TODO Transaction 
-	public boolean saveUser(UserResponse userResponse) {
+	public boolean saveUser(UserDto userDto) {
 		// TODO : SNS로그인 추가 
-		User user = getUser(userResponse);
+		User user = getUser(userDto);
 		userMapper.insertUser(user);
 		
-		Goal goal = getGoal(user.getUserSequence(), userResponse);
+		Goal goal = getGoal(user.getUserSequence(), userDto);
 		goalMapper.insertGoal(goal);
 		return true;
 	}
 	
-	public UserResponse getUser(String userId) {
+	public UserDto getUser(String userId) {
 		List<Goal> goals = goalMapper.selectGoalByUserId(userId);
 		
 		if(ObjectUtils.isEmpty(goals)) {
@@ -50,16 +50,16 @@ public class UserService {
 			return null; // TODO : 에러처리
 		}
 		
-		return getUserResponse(user, goal);
+		return getUserDto(user, goal);
 	}
 
 	// TODO Transaction 처리에 따라서 분기처리 할지 호출만 할지 정해야함.
-	public boolean editUser(UserResponse userResponse) {
-		User user = getUser(userResponse);
+	public boolean editUser(UserDto userDto) {
+		User user = getUser(userDto);
 		boolean isSuccess = userMapper.updateUser(user) > 0;
 		
 		if(isSuccess) {
-			String userId = String.valueOf(userResponse.getUserSequence());
+			String userId = String.valueOf(userDto.getUserSequence());
 			List<Goal> goals = goalMapper.selectGoalByUserId(userId);
 			
 			if(ObjectUtils.isEmpty(goals)) {
@@ -67,7 +67,7 @@ public class UserService {
 			}
 			
 			Goal goal = goals.get(0);
-			setGoal(goal, userResponse.getTargetWeight());
+			setGoal(goal, userDto.getTargetWeight());
 			isSuccess = goalMapper.updateGoal(goal) > 0;
 		}
 		
@@ -86,36 +86,36 @@ public class UserService {
 		return isSuccess;
 	}
 	
-	private UserResponse getUserResponse(User user, Goal goal) {
-		UserResponse userResponse = new UserResponse();
+	private UserDto getUserDto(User user, Goal goal) {
+		UserDto userDto = new UserDto();
 		
-		userResponse.setUserSequence(user.getUserSequence());
-		userResponse.setSex(user.getSex());
-		userResponse.setHeight(user.getHeight());
-		userResponse.setWeight(user.getWeight());
-		userResponse.setBirth(user.getBirth());
-		userResponse.setNickname(user.getNickname());
-		userResponse.setLoginType(user.getLoginType());
-		userResponse.setRefreshToken(user.getRefreshToken());
-		userResponse.setUniqueId(user.getUniqueId());
+		userDto.setUserSequence(user.getUserSequence());
+		userDto.setSex(user.getSex());
+		userDto.setHeight(user.getHeight());
+		userDto.setWeight(user.getWeight());
+		userDto.setBirth(user.getBirth());
+		userDto.setNickname(user.getNickname());
+		userDto.setLoginType(user.getLoginType());
+		userDto.setRefreshToken(user.getRefreshToken());
+		userDto.setUniqueId(user.getUniqueId());
 
-		userResponse.setTargetWeight(goal.getTargetWeight());
+		userDto.setTargetWeight(goal.getTargetWeight());
 		
-		return userResponse;	
+		return userDto;	
 	}
 	
-	private User getUser(UserResponse userResponse) {
+	private User getUser(UserDto userDto) {
 		User user = new User();
 		
-		user.setUserSequence(userResponse.getUserSequence());
-		user.setSex(userResponse.getSex());
-		user.setHeight(userResponse.getHeight());
-		user.setWeight(userResponse.getWeight());
-		user.setBirth(userResponse.getBirth());
-		user.setNickname(userResponse.getNickname());
-		user.setLoginType(userResponse.getLoginType());
-		user.setRefreshToken(userResponse.getRefreshToken());
-		user.setUniqueId(userResponse.getUniqueId());
+		user.setUserSequence(userDto.getUserSequence());
+		user.setSex(userDto.getSex());
+		user.setHeight(userDto.getHeight());
+		user.setWeight(userDto.getWeight());
+		user.setBirth(userDto.getBirth());
+		user.setNickname(userDto.getNickname());
+		user.setLoginType(userDto.getLoginType());
+		user.setRefreshToken(userDto.getRefreshToken());
+		user.setUniqueId(userDto.getUniqueId());
 		
 		Calendar cal = Calendar.getInstance();
 		user.setRegisterDate(cal.getTime());
@@ -124,12 +124,12 @@ public class UserService {
 		return user;	
 	}
 	
-	private Goal getGoal(int userId, UserResponse userResponse) {
+	private Goal getGoal(int userId, UserDto userDto) {
 		Goal goal = new Goal();
 		
 		goal.setUserSequence(userId);
 		goal.setTitle("목표몸무게");
-		goal.setTargetWeight(userResponse.getTargetWeight());
+		goal.setTargetWeight(userDto.getTargetWeight());
 		goal.setState(GoalStateType.PAUSED);
 		
 		Calendar cal = Calendar.getInstance();

@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @ApiModel
-public class UserResponse {
+public class UserDto {
 	
 	@ApiModelProperty(required=true, value="사용자 ID", example="0000")
 	private Integer userSequence;
