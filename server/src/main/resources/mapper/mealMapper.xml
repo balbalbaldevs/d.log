@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlog.diary.meal.mapper.MealMapper">
+	<insert id="insertDiary" parameterType="com.dlog.diary.common.domain.Diary">
+		INSERT INTO diary (user_sequence, diary_day, register_date, modify_date)
+		VALUES(
+			(SELECT user_sequence FROM user WHERE unique_id = #{uniqueId}), 
+			STR_TO_DATE(#{diaryDayForm}, '%Y%m%d'),
+			SYSDATE(), 
+			SYSDATE()
+		)
+		<selectKey resultType="int" keyProperty="diarySequence" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey> 
+	</insert>
+	
+	<insert id="insertMealDiary" parameterType="com.dlog.diary.common.domain.meal.MealDiary">
+		INSERT INTO meal_diary (
+			diary_sequence, meal_type, meal_total_calorie, photo_path, register_date, modify_date
+		) VALUES (
+			#{diarySequence}, #{mealType}, #{mealTotalCalorie}, #{photoPath}, SYSDATE(), SYSDATE()
+		)
+		
+		<selectKey resultType="int" keyProperty="mealDiarySequence" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey> 
+	</insert>
+	
+	<insert id="insertFood" parameterType="com.dlog.diary.common.domain.meal.Food">
+		INSERT INTO food (
+			meal_diary_sequence, food_name, calorie, carbs, protein, fat, amount, amount_unit
+		) VALUES (
+			#{mealDiarySequence}, #{foodName}, #{calorie}, #{carbs}, #{protein}, #{fat}, #{amount}, #{amountUnit}
+		)
+	</insert>
+	
+	
+	<select id="selectDiary" parameterType="string" resultType="com.dlog.diary.common.domain.Diary" >
+		SELECT diary_sequence, user_sequence, diary_day, DATE_FORMAT(diary_day, '%Y-%m-%d') AS diaryDayForm,
+		       DATE_FORMAT(modify_date, '%Y-%m-%d') AS modifyDateForm
+		  FROM diary
+		 WHERE user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+		   AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+	</select>
+	
+	<select id="selectDailyMeals" parameterType="string" resultType="com.dlog.diary.common.domain.meal.DailyMeals" >
+		SELECT d.diary_sequence, d.user_sequence, d.diary_day, DATE_FORMAT(d.diary_day, '%Y%m%d') AS diaryDayForm,
+		       d.modify_date, DATE_FORMAT(d.modify_date, '%Y%m%d') AS modifyDateForm,
+		       m.meal_diary_sequence, m.diary_sequence, m.meal_type, m.meal_total_calorie, m.photo_path
+		  FROM diary d, meal_diary m
+		 WHERE d.diary_sequence = m.diary_sequence
+		   AND d.user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+		   AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+	</select>
+	
+	<select id="selectFoods" parameterType="int" resultType="com.dlog.diary.common.domain.meal.Food" >
+		SELECT *
+		  FROM food
+		 WHERE meal_diary_sequence = #{mealDiarySequence}
+	</select>
+	
+	
+	<update id="updateDiary" parameterType="string">
+		UPDATE diary
+		   SET modify_date = SYSDATE()
+		 WHERE user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+		   AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+	</update>
+	
+	<update id="updateMealDiary" parameterType="com.dlog.diary.common.domain.meal.MealDiary">
+		UPDATE meal_diary
+		   SET meal_total_calorie = #{mealTotalCalorie},
+	           photo_path = #{photoPath},
+	           modify_date = SYSDATE()
+	     WHERE diary_sequence = #{diarySequence}
+	       AND meal_diary_sequence = #{mealDiarySequence}
+	</update>
+	
+	<update id="updateFood" parameterType="com.dlog.diary.common.domain.meal.Food">
+		UPDATE food
+		   SET food_name = #{foodName},
+		       calorie = #{calorie},
+		       carbs = #{carbs}, 
+		       protein = #{protein},
+		       fat = #{fat},
+		       amount = #{amount}, 
+		       amount_unit = #{amountUnit}
+		 WHERE food_sequence = #{foodSequence}
+	</update>
+	
+	
+	<delete id="deleteDiary" parameterType="string">
+		DELETE 
+		  FROM diary
+		 WHERE user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+		   AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+	</delete>
+	
+	<delete id="deleteMealDiaries" parameterType="string">
+		DELETE 
+		  FROM meal_diary 
+		 WHERE meal_diary_sequence IN (
+		   SELECT m.meal_diary_sequence
+			 FROM diary d, meal_diary m
+			WHERE d.diary_sequence = m.diary_sequence
+			  AND d.user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+			  AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+		 )
+	</delete>
+	
+	<delete id="deleteFoods" parameterType="string">
+		DELETE 
+		  FROM food 
+		 WHERE meal_diary_sequence IN (
+		   SELECT m.meal_diary_sequence
+			 FROM diary d, meal_diary m
+			WHERE d.diary_sequence = m.diary_sequence
+			  AND d.user_sequence = (SELECT user_sequence FROM user WHERE unique_id = #{uniqueId})
+			  AND DATE_FORMAT(diary_day, '%Y%m%d') = STR_TO_DATE(#{diaryDay}, '%Y%m%d')
+		 )
+	</delete>
+</mapper>
