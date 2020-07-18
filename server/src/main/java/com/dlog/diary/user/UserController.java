@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dlog.diary.common.dto.CommonResponse;
 import com.dlog.diary.common.types.UnitType;
+import com.dlog.diary.common.types.UserLoginType;
+import com.dlog.diary.common.types.UserSexType;
 import com.dlog.diary.user.dto.UserDto;
 import com.dlog.diary.user.service.UserService;
 
@@ -89,6 +91,8 @@ public class UserController {
 	@ModelAttribute
 	public void setEnumTypes(Model model) {
 		//다른 controller에서도 사용할수있게 ControllerAdvice 사용으로 고치기
+	    model.addAttribute("UserSexTypes", UserSexType.values());
+	    model.addAttribute("UserLoginTypes", UserLoginType.values());
 	    model.addAttribute("UnitTypes", UnitType.values());
 	}
 
