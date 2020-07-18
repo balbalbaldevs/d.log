@@ -1,7 +1,9 @@
 package com.dlog.diary.user;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dlog.diary.common.dto.CommonResponse;
+import com.dlog.diary.common.types.UnitType;
 import com.dlog.diary.user.dto.UserDto;
 import com.dlog.diary.user.service.UserService;
 
@@ -81,6 +84,12 @@ public class UserController {
 			response.fail(500, "삭제가 실패되었습니다.");
 		}
 		return response;
+	}
+	
+	@ModelAttribute
+	public void setEnumTypes(Model model) {
+		//다른 controller에서도 사용할수있게 ControllerAdvice 사용으로 고치기
+	    model.addAttribute("UnitTypes", UnitType.values());
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.util.ObjectUtils;
 import com.dlog.diary.common.domain.user.Goal;
 import com.dlog.diary.common.domain.user.User;
 import com.dlog.diary.common.types.GoalStateType;
+import com.dlog.diary.common.types.UnitType;
 import com.dlog.diary.user.dto.UserDto;
 import com.dlog.diary.user.mapper.GoalMapper;
 import com.dlog.diary.user.mapper.UserMapper;
@@ -92,7 +93,9 @@ public class UserService {
 		userDto.setUserSequence(user.getUserSequence());
 		userDto.setSex(user.getSex());
 		userDto.setHeight(user.getHeight());
+		userDto.setHeightUnit(UnitType.CM);
 		userDto.setWeight(user.getWeight());
+		userDto.setWeightUnit(UnitType.KG);
 		userDto.setBirth(user.getBirth());
 		userDto.setNickname(user.getNickname());
 		userDto.setLoginType(user.getLoginType());

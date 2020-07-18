@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.dlog.diary.common.types.UserLoginType;
 import com.dlog.diary.common.types.UserSexType;
+import com.dlog.diary.common.types.UnitType;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,8 +23,14 @@ public class UserDto {
 	@ApiModelProperty(value="키", example="160")
 	private Integer height;
 	
+	@ApiModelProperty(value="키 단위", example="CM")
+	private UnitType heightUnit = UnitType.CM;
+	
 	@ApiModelProperty(value="몸무게", example="50")
 	private Integer weight;
+	
+	@ApiModelProperty(value="몸무게 단위", example="KG")
+	private UnitType weightUnit = UnitType.KG;
 	
 	@ApiModelProperty(value="생년월일", example="2020-07-01")
 	private Date birth;
