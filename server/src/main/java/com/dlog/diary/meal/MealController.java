@@ -18,6 +18,7 @@ import com.dlog.diary.meal.dto.AddDailyMealsRequest;
 import com.dlog.diary.meal.dto.DailyMealResponse;
 import com.dlog.diary.meal.dto.EditDailyMealsRequest;
 import com.dlog.diary.meal.dto.GoveFoodsResponse;
+import com.dlog.diary.meal.service.MealMapStructService;
 import com.dlog.diary.meal.service.MealMockDataService;
 import com.dlog.diary.meal.service.MealService;
 
@@ -30,11 +31,14 @@ import io.swagger.annotations.ApiParam;
 public class MealController {
 	private MealMockDataService mockService;
 	private MealService mealService;
+	private MealMapStructService mealTransferService;
 	private String uniqueId = "test";
 
-	public MealController(MealMockDataService mockService, MealService mealService) {
+	public MealController(MealMockDataService mockService, MealService mealService,
+			MealMapStructService mealTransferService) {
 		this.mockService = mockService;
 		this.mealService = mealService;
+		this.mealTransferService = mealTransferService;
 	}
 
 	@GetMapping("/diaries/{diaryDay}/meals")
@@ -139,6 +143,20 @@ public class MealController {
 		}
 		response.ok();
 		return response;
+	}
+
+	@GetMapping("/diaries/{diaryDay}/meals/test")
+	public DailyMealResponse test() {
+
+		DailyMeals dailyMeals = new DailyMeals();
+		dailyMeals.setDiaryDayForm("20200719");
+		dailyMeals.setDiarySequence(1);
+		dailyMeals.setModifyDateForm("20200720");
+		DailyMealResponse dailyMealResponse = mealTransferService.to(dailyMeals);
+		System.out.println("------------------------------");
+		System.out.println(dailyMealResponse);
+		System.out.println("------------------------------");
+		return dailyMealResponse;
 	}
 
 }

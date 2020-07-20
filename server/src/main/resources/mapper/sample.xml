@@ -3,7 +3,7 @@
 <mapper namespace="com.dlog.diary.sample.SampleMapper">
 
 	<select id="getSampleData" parameterType="com.dlog.diary.sample.SampleVO" resultType="map">
-		SELECT #{nm}, #{age}, '영차영차'
+		SELECT #{nm} AS 'name', #{age} AS 'age', '영차영차' AS 'said'
 	</select>
 
 </mapper>
