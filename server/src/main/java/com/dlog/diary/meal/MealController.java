@@ -18,6 +18,7 @@ import com.dlog.diary.meal.dto.AddDailyMealsRequest;
 import com.dlog.diary.meal.dto.DailyMealResponse;
 import com.dlog.diary.meal.dto.EditDailyMealsRequest;
 import com.dlog.diary.meal.dto.GoveFoodsResponse;
+import com.dlog.diary.meal.service.MealMappingService;
 import com.dlog.diary.meal.service.MealMockDataService;
 import com.dlog.diary.meal.service.MealService;
 

@@ -1,6 +1,8 @@
 package com.dlog.diary.meal.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,13 +10,20 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.dlog.diary.common.domain.meal.DailyMeals;
 import com.dlog.diary.common.domain.meal.Food;
 import com.dlog.diary.meal.dto.DailyMealResponse;
 import com.dlog.diary.meal.dto.FoodResponse;
+import com.dlog.diary.meal.mapper.MealMapper;
 
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
 public class MealMappingServiceTest {
 
 	MealMappingService mapper = Mappers.getMapper(MealMappingService.class);
@@ -125,7 +134,7 @@ public class MealMappingServiceTest {
 		assertEquals(response.get(0).getProtein(), result.get(0).getProtein());
 		assertEquals(response.get(0).getAmount(), result.get(0).getAmount());
 		assertEquals(response.get(0).getAmountUnit(), result.get(0).getAmountUnit());
-		
+
 		assertEquals(response.get(1).getFoodSequence(), result.get(1).getFoodSequence());
 		assertEquals(response.get(1).getFoodName(), result.get(1).getFoodName());
 		assertEquals(response.get(1).getCalorie(), result.get(1).getCalorie());
@@ -134,5 +143,32 @@ public class MealMappingServiceTest {
 		assertEquals(response.get(1).getProtein(), result.get(1).getProtein());
 		assertEquals(response.get(1).getAmount(), result.get(1).getAmount());
 		assertEquals(response.get(1).getAmountUnit(), result.get(1).getAmountUnit());
+	}
+
+	@Autowired
+	MealMapper mealMapper;
+
+	@Test
+	public void test3() {
+		String uniqueId = "test";
+		String diaryDay = "20200709";
+
+		List<DailyMeals> dailyMeals = mealMapper.selectDailyMeals(uniqueId, diaryDay);
+		for (DailyMeals meal : dailyMeals) {
+			List<Food> foods = mealMapper.selectFoods(meal.getMealDiarySequence());
+			meal.setFoods(foods);
+		}
+		
+		DailyMealResponse response = mapper.dailyToResponse(dailyMeals);
+		assertEquals(dailyMeals.get(0).getDiaryDayForm(), response.getDiaryDay());
+		assertEquals(dailyMeals.get(0).getModifyDateForm(), response.getLastUpdateDate());
+		assertEquals(dailyMeals.get(0).getDiarySequence(), response.getDiarySequence());
+		assertTrue(response.getTotalCalories() > 0);
+		assertEquals(dailyMeals.get(0).getMealType().name(), response.getMealDiaries().get(0).getMealType());
+		assertNotNull(response.getMealDiaries().get(0).getFoods().get(0).getFoodName());
+		assertEquals(dailyMeals.get(0).getFoods().get(0).getFoodName(),
+				response.getMealDiaries().get(0).getFoods().get(0).getFoodName());
+
+		System.out.println(response);
 	}
 }
