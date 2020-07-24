@@ -1,6 +1,5 @@
 package com.dlog.diary.meal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,11 +30,14 @@ import io.swagger.annotations.ApiParam;
 public class MealController {
 	private MealMockDataService mockService;
 	private MealService mealService;
+	private MealMappingService mealMappingService;
 	private String uniqueId = "test";
 
-	public MealController(MealMockDataService mockService, MealService mealService) {
+	public MealController(MealMockDataService mockService, MealService mealService,
+			MealMappingService mealMappingService) {
 		this.mockService = mockService;
 		this.mealService = mealService;
+		this.mealMappingService = mealMappingService;
 	}
 
 	@GetMapping("/diaries/{diaryDay}/meals")
@@ -44,13 +46,12 @@ public class MealController {
 			@ApiParam(name = "diaryDay", value = "식단 날짜", required = true, example = "20200701") @PathVariable("diaryDay") String diaryDay) {
 
 		List<DailyMeals> dailyMeals = mealService.getDailyMeals(uniqueId, diaryDay);
-		// TODO transfer dailyMeals to response
+
 		// TODO logging response
 
-		DailyMealResponse response = new DailyMealResponse();
-		if (dailyMeals.size() > 0) {
-			response.setDailyMeals(dailyMeals);
-		} else {
+		DailyMealResponse response = mealMappingService.dailyToResponse(dailyMeals);
+		if (response == null) {
+			response = new DailyMealResponse();
 			response.setEmpty();
 		}
 		return response;
@@ -81,12 +82,8 @@ public class MealController {
 			return response;
 		}
 
-		List<DailyMeals> dailyMeals = new ArrayList<>();
-		for (AddDailyMealsRequest request : addDailyMealsRequest) {
-			dailyMeals.add(request.getDailyMeals(uniqueId, diaryDay));
-		}
-
-		boolean isSuccess = mealService.registerDiaryMeals(dailyMeals);
+		List<DailyMeals> dailyMeals = mealMappingService.requestToMeals(addDailyMealsRequest);
+		boolean isSuccess = mealService.registerDiaryMeals(uniqueId, diaryDay, dailyMeals);
 		if (isSuccess) {
 			response.ok(201, "등록 되었습니다.");
 		} else {
@@ -107,12 +104,8 @@ public class MealController {
 			return response;
 		}
 
-		List<DailyMeals> dailyMeals = new ArrayList<>();
-		for (EditDailyMealsRequest request : editDailyMealsRequest) {
-			dailyMeals.add(request.getDailyMeals(uniqueId, diaryDay));
-		}
-
-		boolean isSuccess = mealService.editDailyMeals(dailyMeals);
+		List<DailyMeals> dailyMeals = mealMappingService.requestToEditMeals(editDailyMealsRequest);
+		boolean isSuccess = mealService.editDailyMeals(uniqueId, diaryDay, dailyMeals);
 		if (isSuccess) {
 			response.ok(200, "수정 되었습니다.");
 		} else {

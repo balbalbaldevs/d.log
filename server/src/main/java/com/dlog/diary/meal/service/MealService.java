@@ -19,10 +19,10 @@ public class MealService {
 	}
 
 	@Transactional
-	public boolean registerDiaryMeals(List<DailyMeals> dailyMeals) {
+	public boolean registerDiaryMeals(String uniqueId, String diaryDay, List<DailyMeals> dailyMeals) {
 		Diary diary = new Diary();
-		diary.setUniqueId(dailyMeals.get(0).getUniqueId());
-		diary.setDiaryDayForm(dailyMeals.get(0).getDiaryDayForm());
+		diary.setUniqueId(uniqueId);
+		diary.setDiaryDayForm(diaryDay);
 		mealMapper.insertDiary(diary);
 
 		for (DailyMeals mealDiary : dailyMeals) {
@@ -59,11 +59,10 @@ public class MealService {
 	}
 
 	@Transactional
-	public boolean editDailyMeals(List<DailyMeals> dailyMeals) {
-		String uniqueId = dailyMeals.get(0).getUniqueId();
-		String diaryDay = dailyMeals.get(0).getDiaryDayForm();
+	public boolean editDailyMeals(String uniqueId, String diaryDay, List<DailyMeals> dailyMeals) {
 		boolean isSuccess = mealMapper.updateDiary(uniqueId, diaryDay) > 0;
 		Diary diary = mealMapper.selectDiary(uniqueId, diaryDay);
+		
 		// TODO 분기처리 없이 mapper.xml에서 mealDiarySequence 가져오기
 		for (DailyMeals meal : dailyMeals) {
 			meal.setDiarySequence(diary.getDiarySequence());

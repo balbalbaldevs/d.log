@@ -5,11 +5,14 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.mapstruct.Named;
 
 import com.dlog.diary.common.domain.meal.DailyMeals;
 import com.dlog.diary.common.domain.meal.Food;
+import com.dlog.diary.meal.dto.AddDailyMealsRequest;
+import com.dlog.diary.meal.dto.AddFoodRequest;
 import com.dlog.diary.meal.dto.DailyMealResponse;
+import com.dlog.diary.meal.dto.EditDailyMealsRequest;
+import com.dlog.diary.meal.dto.EditFoodRequest;
 import com.dlog.diary.meal.dto.FoodResponse;
 import com.dlog.diary.meal.dto.MealDiaryResponse;
 
@@ -45,13 +48,61 @@ public interface MealMappingService {
 	List<MealDiaryResponse> mealsToResponse(List<DailyMeals> meals);
 
 	@Mappings({
-		@Mapping(target = "mealCalories", source = "meal.mealTotalCalorie"),
-		@Mapping(target = "mealPhotoPath", source = "meal.photoPath"),
+		@Mapping(target = "mealCalories", source = "dailyMeals.mealTotalCalorie"),
+		@Mapping(target = "mealPhotoPath", source = "dailyMeals.photoPath") 
 	})
-    MealDiaryResponse mealToResponse(DailyMeals meal);
+	MealDiaryResponse mealToResponse(DailyMeals dailyMeals);
 
 	List<FoodResponse> foodsToResponse(List<Food> foods);
-	
+
 	FoodResponse foodToResponse(Food food);
 
+	List<DailyMeals> requestToMeals(List<AddDailyMealsRequest> addDailyMealsRequests);
+
+	default DailyMeals requestToMeal(AddDailyMealsRequest addDailyMealsRequest) {
+		if (addDailyMealsRequest == null) {
+			return null;
+		}
+
+		DailyMeals dailyMeals = new DailyMeals();
+		dailyMeals.setMealType(addDailyMealsRequest.getMealType());
+		dailyMeals.setPhotoPath(addDailyMealsRequest.getPhotoPath());
+		dailyMeals.setFoods(requestToFoods(addDailyMealsRequest.getFoods()));
+		int mealTotalCalorie = 0;
+		for (Food food : dailyMeals.getFoods()) {
+			mealTotalCalorie += food.getCalorie();
+		}
+		dailyMeals.setMealTotalCalorie(mealTotalCalorie);
+
+		return dailyMeals;
+	}
+
+	List<Food> requestToFoods(List<AddFoodRequest> addFoodRequests);
+
+	Food requestToFood(AddFoodRequest addFoodRequest);
+
+	List<DailyMeals> requestToEditMeals(List<EditDailyMealsRequest> editDailyMealsRequests);
+
+	default DailyMeals requestToEditMeal(EditDailyMealsRequest editDailyMealsRequest) {
+		if (editDailyMealsRequest == null) {
+			return null;
+		}
+
+		DailyMeals dailyMeals = new DailyMeals();
+		dailyMeals.setMealDiarySequence(editDailyMealsRequest.getMealDiarySequence());
+		dailyMeals.setMealType(editDailyMealsRequest.getMealType());
+		dailyMeals.setPhotoPath(editDailyMealsRequest.getPhotoPath());
+		dailyMeals.setFoods(requestToEditFoods(editDailyMealsRequest.getFoods()));
+		int mealTotalCalorie = 0;
+		for (Food food : dailyMeals.getFoods()) {
+			mealTotalCalorie += food.getCalorie();
+		}
+		dailyMeals.setMealTotalCalorie(mealTotalCalorie);
+
+		return dailyMeals;
+	}
+
+	List<Food> requestToEditFoods(List<EditFoodRequest> editFoodRequests);
+
+	Food requestToEditFood(EditFoodRequest editFoodRequest);
 }
