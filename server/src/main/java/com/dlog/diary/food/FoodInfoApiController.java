@@ -48,7 +48,7 @@ public class FoodInfoApiController {
 	 * @return list<map<string,Object>>
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/foods", method = RequestMethod.GET)
+	@RequestMapping(value = "/gove/foods", method = RequestMethod.GET)
 	@ResponseBody
 	public List<?> getFoodInfo(@RequestParam String paraStr) throws Exception {
 		List<Map<String, Object>> list = new ArrayList<>();
