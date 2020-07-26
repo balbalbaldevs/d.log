@@ -1,5 +1,7 @@
 package com.dlog.diary.common.types;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum UserSexType {
 	MALE("남자"),
 	FEMALE("여자");
@@ -9,7 +11,8 @@ public enum UserSexType {
 	UserSexType(String description) {
 		this.description = description;
 	}
-
+	
+	@JsonValue
 	public String getDescription() {
 		return description;
 	}

@@ -17,19 +17,19 @@ public class UserDto {
 	@ApiModelProperty(required=true, value="사용자 ID", example="0000")
 	private Integer userSequence;
 	
-	@ApiModelProperty(required=true, value="성별", example="FEMALE")
+	@ApiModelProperty(required=true, value="성별", example="여자")
 	private UserSexType sex;
 	
 	@ApiModelProperty(value="키", example="160")
 	private Integer height;
 	
-	@ApiModelProperty(value="키 단위", example="CM")
+	@ApiModelProperty(value="키 단위", example="cm")
 	private UnitType heightUnit = UnitType.CM;
 	
 	@ApiModelProperty(value="몸무게", example="50")
 	private Integer weight;
 	
-	@ApiModelProperty(value="몸무게 단위", example="KG")
+	@ApiModelProperty(value="몸무게 단위", example="kg")
 	private UnitType weightUnit = UnitType.KG;
 	
 	@ApiModelProperty(value="생년월일", example="2020-07-01")
@@ -38,7 +38,7 @@ public class UserDto {
 	@ApiModelProperty(value="닉네임", example="헬린이")
 	private String nickname;
 	
-	@ApiModelProperty(required=true, value="로그인타입", example="KAKAOTALK")
+	@ApiModelProperty(required=true, value="로그인타입", example="카카오톡")
 	private UserLoginType loginType;
 	
 	@ApiModelProperty(required=true, value="토큰", example="?")

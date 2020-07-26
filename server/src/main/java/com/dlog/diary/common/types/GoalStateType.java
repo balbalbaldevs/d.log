@@ -1,5 +1,7 @@
 package com.dlog.diary.common.types;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum GoalStateType {
 	TO_DO("커밍쑨!"),
 	IN_PROGRESS("진행중"),
@@ -12,7 +14,8 @@ public enum GoalStateType {
 	GoalStateType(String description) {
 		this.description = description;
 	}
-
+	
+	@JsonValue
 	public String getDescription() {
 		return description;
 	}
