@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlog.diary.user.mapper.GoalMapper">
+	
+	<select id="selectGoalByUserId" resultType="com.dlog.diary.common.domain.user.Goal">
+		SELECT * 
+		FROM GOAL
+		WHERE user_sequence = #{userId}
+	</select>
+	
+	<insert id="insertGoal" parameterType="com.dlog.diary.common.domain.user.Goal">
+		INSERT INTO 
+		GOAL (
+			user_sequence
+			,title
+			,target_weight
+			,start_date
+			,end_date
+			,state
+			,register_date
+			,modify_date
+		) VALUES (
+			#{userSequence}
+			,#{title}
+			,#{targetWeight}
+			,#{startDate}
+			,#{endDate}
+			,#{state}
+			,#{registerDate}
+			,#{modifyDate}
+		)
+	</insert>
+	
+	<update id="updateGoal" parameterType="com.dlog.diary.common.domain.user.Goal">
+		UPDATE GOAL
+		SET user_sequence = #{userSequence}
+			,title = #{title}
+			,target_weight = #{targetWeight}
+			,start_date = #{startDate}
+			,end_date = #{endDate}
+			,state = #{state}
+			,modify_date = #{modifyDate}
+		WHERE goal_sequence = #{goalSequence}
+	</update>
+	
+	<delete id="deleteGoalByUserId">
+		DELETE
+		FROM GOAL
+		WHERE user_sequence = #{userId}
+	</delete>
+	
+</mapper>
