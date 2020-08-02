@@ -11,11 +11,11 @@ type Props = AttributeProps & {
   posY: PosYType;
 };
 
-const StyleContainer: React.FC<Props> = ({ direction = 'horizontal', posX = 'left', posY = 'top', ...rest }) => (
+const StyleContainer: React.FC<Props> = ({ direction = 'vertical', posX = 'left', posY = 'top', ...rest }) => (
   <div
     {...rest}
     className={classNames('style-container', `position-${posX}-${posY}`, {
-      column: direction === 'horizontal',
+      column: direction === 'vertical',
     })}
   />
 );

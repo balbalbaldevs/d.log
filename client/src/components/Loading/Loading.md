@@ -1,12 +1,12 @@
 Default loading:
 
 ```js
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 120 }}>
+import StyleContainer from '../../styleguide/components/StyleContainer';
+<StyleContainer direction="horizontal" posY="center" style={{ justifyContent: 'space-between', width: 120 }}>
   <Loading size="small" />
   <Loading />
   <Loading size="large" />
-</div>
-
+</StyleContainer>
 ```
 
 Skeleton loading:
@@ -56,7 +56,7 @@ useEffect(() => {
   }
 }, [data]);
 
-<StyleContainer style={{ width: '100%', height: '100%' }}>
+<StyleContainer>
   <Button style={{ marginBottom: 40 }} onClick={reset}>Reset</Button>
   <div style={{ width: '100%' }}>
     <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden' }}>
@@ -76,9 +76,11 @@ useEffect(() => {
 Text loading:
 
 ```js
-<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', height: 80 }}>
-<Loading type="text" size="small">Loading</Loading>
-<Loading type="text">Loading</Loading>
-<Loading type="text" size="large">Loading</Loading>
-</div>
+import StyleContainer from '../../styleguide/components/StyleContainer';
+
+<StyleContainer posX="center" posY="center" style={{ justifyContent: 'space-between', height: 80 }}>
+  <Loading type="text" size="small">Loading</Loading>
+  <Loading type="text">Loading</Loading>
+  <Loading type="text" size="large">Loading</Loading>
+</StyleContainer>
 ```
