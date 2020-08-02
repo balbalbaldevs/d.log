@@ -10,6 +10,8 @@ function Loading(props: Props) {
     children,
     rowNum = 1,
     type = 'spinner',
+    fontSize,
+    size = 'medium',
     ...rest
   } = props;
 
@@ -17,6 +19,7 @@ function Loading(props: Props) {
     'loading',
     `loading--${type}`,
     { 'is-multiple': type === LOADING_TYPE.SKELETON && rowNum > 1 },
+    `loading--${size}`,
     className,
   );
 
@@ -24,7 +27,7 @@ function Loading(props: Props) {
     <span {...rest} className={loadingClass} role="status" aria-label={children != null ? '로딩중' : undefined}>
       {type === LOADING_TYPE.TEXT && <Dots />}
       {type === LOADING_TYPE.SPINNER && <Spinner />}
-      {type === LOADING_TYPE.SKELETON && <Skeleton rowNum={rowNum} />}
+      {type === LOADING_TYPE.SKELETON && <Skeleton rowNum={rowNum} fontSize={fontSize} />}
       {children}
     </span>
   );

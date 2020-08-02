@@ -1,14 +1,14 @@
 @import '../variables';
 
 .spinner {
-  width: 20px;
-  height: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: 4px solid #ccc;
   border-right-color: rgba(#ccc, 0.15);
 
-  animation: $loading-animation-timing $loading-animation-iteration-count;
-  animation-name: spinner;
+  animation: spinner $loading-animation-timing $loading-animation-iteration-count;;
   animation-timing-function: cubic-bezier(0, 0.43, 0.95, 0.82);
   animation-delay: 0.4s;
 }

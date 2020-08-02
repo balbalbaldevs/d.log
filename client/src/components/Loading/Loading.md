@@ -1,14 +1,28 @@
 Default loading:
 
 ```js
-<Loading />
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 120 }}>
+  <Loading size="small" />
+  <Loading />
+  <Loading size="large" />
+</div>
+
 ```
 
 Skeleton loading:
 
 ```js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import sampleImage from '../../styleguide/assets/images/sample-image.jpg';
+import StyleContainer from '../../styleguide/components/StyleContainer';
+import { Button } from '../../components/';
+
+const initialData = {
+  title: null,
+  text: null,
+  imageUrl: null,
+  author: null,
+};
 
 const mockData = {
   title: 'Skeleton Component',
@@ -20,34 +34,51 @@ const mockData = {
   }
 };
 
-const [data, setData] = React.useState({
-  title: null,
-  text: null,
-  imageUrl: null,
-  author: null,
-});
+const [load, setLoad] = useState(true);
+const [data, setData] = useState(initialData);
 
-React.useEffect(() => {
-  const dataTimer = setTimeout(() => setData(mockData), 10000); 
+const reset = () => {
+  setData(initialData);
+  setLoad(true);
+}
+
+const dataTimer = setTimeout(() => setData(mockData), 50000000); 
+
+useEffect(() => {
+  if (load) dataTimer;
   return () => clearTimeout(dataTimer);
-}, []);
+}, [load]);
 
-<>
-  <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden' }}>
-    {data.author != null ? 
-      <img src={data.author.imageUrl} alt={data.author.name} style={{ width: '100%', height: '100%' }} /> : 
-      <Loading type="skeleton" />}
+useEffect(() => {
+  if (data) {
+    clearTimeout(dataTimer);
+    setLoad(false);
+  }
+}, [data]);
+
+<StyleContainer style={{ width: '100%', height: '100%' }}>
+  <Button style={{ marginBottom: 40 }} onClick={reset}>Reset</Button>
+  <div style={{ width: '100%' }}>
+    <div style={{ width: 40, height: 40, borderRadius: '50%', overflow: 'hidden' }}>
+      {data.author != null ? 
+        <img src={data.author.imageUrl} alt={data.author.name} style={{ width: '100%', height: '100%' }} /> : 
+        <Loading type="skeleton" />}
+    </div>
+    <h2>{data.title || <Loading type="skeleton" style={{ width: 200, height: 24 }} />}</h2>
+    <p>{data.text || <Loading type="skeleton" rowNum={4} />}</p>
+    {data.imageUrl ? 
+      <img src={data.imageUrl} style={{ width: 200 }} alt="" /> : 
+      <Loading type="skeleton" style={{ width: 200, height: 150 }} />}
   </div>
-  <h2>{data.title || <Loading type="skeleton" style={{ width: 200, height: 24 }} />}</h2>
-  <p>{data.text || <Loading type="skeleton" rowNum={4} />}</p>
-  {data.imageUrl ? 
-    <img src={data.imageUrl} style={{ width: 200 }} alt="" /> : 
-    <Loading type="skeleton" style={{ width: 200, height: 150 }} />}
-</>; 
-```
+</StyleContainer>
+``` 
 
 Text loading:
 
 ```js
+<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', height: 80 }}>
+<Loading type="text" size="small">Loading</Loading>
 <Loading type="text">Loading</Loading>
+<Loading type="text" size="large">Loading</Loading>
+</div>
 ```

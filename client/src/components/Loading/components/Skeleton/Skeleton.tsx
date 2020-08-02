@@ -1,11 +1,14 @@
-import React from 'react';
+import classNames from 'classnames';
+import React, { HTMLAttributes } from 'react';
+import { Props as LoadingProps } from '../../Loading.types';
 import './Skeleton.scss';
 
-type Props = {
+type Props = HTMLAttributes<HTMLSpanElement> & {
   rowNum: number;
+  fontSize?: LoadingProps['fontSize'];
 };
 
-export default function Skeleton({ rowNum }: Props) {
-  const renderSkeleton = [...Array(rowNum).keys()].map((key) => <span key={key} className="skeleton" />);
+export default function Skeleton({ className, rowNum, fontSize , ...rest}: Props) {
+  const renderSkeleton = [...Array(rowNum).keys()].map((key) => <span key={key} {...rest} className={classNames('skeleton', { [`size-${fontSize}`]: fontSize} , className)} />);
   return <>{renderSkeleton}</>;
 }
