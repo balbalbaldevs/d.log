@@ -19,3 +19,9 @@ export enum PosY {
   BOTTOM = 'bottom',
   CENTER = 'center',
 }
+
+export enum Size {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+}
