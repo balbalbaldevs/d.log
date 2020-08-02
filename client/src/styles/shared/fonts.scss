@@ -1,0 +1,40 @@
+// font-weight settings
+$regular: 400;
+$bold: 600;
+$extra-bold: 800;
+
+$font-weights:
+  'R' $regular,
+  'B' $bold,
+  'EB' $extra-bold;
+
+@each $type, $weight in $font-weights {
+  @font-face {
+    font-family: 'Nanum Square';
+    src:
+      /* Modern Browsers */
+      url('../../assets/fonts/NanumSquare#{$type}.woff') format('woff'),
+      /* Safari, Android, iOS */
+      url('../../assets/fonts/NanumSquare#{$type}.ttf') format('ttf');
+    font-weight: $weight;
+    font-style: normal;
+    /* hangul unicode */
+    unicode-range:
+      U+1100-11FF,
+      U+3130-318F,
+      U+AC00-D7AF;
+  }
+}
+
+$font-size-level1: 12px;
+$font-size-level2: 14px;
+$font-size-level3: 16px;
+$font-size-level4: 18px;
+$font-size-level5: 20px;
+
+$en-font-family: 'Open Sans';
+$kr-font-family: 'Nanum Square';
+$font-type: sans-serif;
+$font-family: $kr-font-family, $en-font-family, sans-serif;
+$base-font-size: $font-size-level3;
+
