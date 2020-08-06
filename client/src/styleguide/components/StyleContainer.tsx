@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import './StyleContainer.scss';
-import { DirectionType, PosXType, PosYType } from '../../types/ui.types';
+import { DirectionType, PosXType, PosYType } from '@/types/ui.types';
 
 type AttributeProps = React.HTMLAttributes<HTMLDivElement>;
 

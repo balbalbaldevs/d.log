@@ -1,3 +1,4 @@
+const path = require('path');
 const jsParser = require('react-docgen');
 const tsParser = require('react-docgen-typescript');
 
@@ -6,6 +7,10 @@ module.exports = {
   components: 'src/components/**/*.tsx',
   skipComponentsWithoutExample: true,
   pagePerSection: true,
+  moduleAliases: {
+    '@styleguide': path.resolve(__dirname, 'src/styleguide/components'),
+    '@': path.resolve(__dirname, 'src'),
+  },
   sections: [
     {
       name: 'Introduction',
