@@ -1,0 +1,16 @@
+@import './styles/shared/index';
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: $base-font-size;
+  font-weight: $regular;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  line-height: 1.25;
+}

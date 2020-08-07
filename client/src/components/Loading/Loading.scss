@@ -1,0 +1,45 @@
+@import '../../styles/shared/index';
+
+.loading {
+  --loading--font-size: #{$font-size-level1};
+
+  // .loading--small
+  --loading--spinner-size: 20px;
+  --loading--dots-size: 6px;
+  --loading--text-font-size: #{$font-size-level1};
+
+  box-sizing: content-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--loading--font-size);
+
+  &--spinner {
+    width: var(--loading--spinner-size);
+    height: var(--loading--spinner-size);
+  }
+
+  &--text {
+    font-size: var(--loading--text-font-size);
+  }
+
+  &--medium {
+    --loading--spinner-size: 28px;
+    --loading--dots-size: 7px;
+    --loading--text-font-size: #{$font-size-level2};
+  }
+
+  &--large {
+    --loading--spinner-size: 34px;
+    --loading--dots-size: 8px;
+    --loading--text-font-size: #{$font-size-level3};
+  }
+
+  &--skeleton {
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 12px;
+  }
+}

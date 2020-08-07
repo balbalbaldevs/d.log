@@ -1,0 +1,59 @@
+@import '../variables';
+
+@mixin dot {
+  width: var(--loading--dots-size);
+  height: var(--loading--dots-size);
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.dots {
+  display: inline-flex;
+  margin-right: 10px;
+
+  > span {
+    display: block;
+    @include dot;
+    margin: 0 8px;
+    animation: $loading-animation-properties;
+    animation-name: loadingDots;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation-delay: 0.3s;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    @include dot;
+  }
+
+  &::before {
+    animation: $loading-animation-properties;
+    animation-name: loadingDots;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation-delay: 0.1s;
+  }
+
+  &::after {
+    animation: $loading-animation-properties;
+    animation-name: loadingDots;
+    animation-timing-function: cubic-bezier(0.1, 0.82, 0.39, 0.88);
+    animation-delay: 0.7s;
+  }
+
+  &.has-text {
+    margin-right: 12px;
+  }
+}
+
+@keyframes loadingDots {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
