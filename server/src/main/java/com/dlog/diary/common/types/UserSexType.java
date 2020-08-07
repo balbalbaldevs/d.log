@@ -1,6 +1,6 @@
 package com.dlog.diary.common.types;
 
-public enum UserSexType {
+public enum UserSexType implements DlogEnum {
 	MALE("남자"),
 	FEMALE("여자");
 	

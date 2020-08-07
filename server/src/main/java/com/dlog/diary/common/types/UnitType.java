@@ -1,6 +1,6 @@
 package com.dlog.diary.common.types;
 
-public enum UnitType {
+public enum UnitType implements DlogEnum {
 	KG("kg"),
 	CM("cm");
 	
