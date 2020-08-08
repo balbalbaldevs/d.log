@@ -1,9 +1,11 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createStandardAction } from '../action-helpers';
-import { UserSampleState } from './ReduxSample.types';
-import { AppState } from '../store.types';
+import axios from 'axios';
+
 import { AppDispatch } from '@/store';
+
+import { createStandardAction } from '../action-helpers';
+import { AppState } from '../store.types';
+import { UserSampleState } from './ReduxSample.types';
 
 interface ThunkAPI {
   state: AppState;

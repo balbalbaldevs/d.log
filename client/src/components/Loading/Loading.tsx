@@ -1,19 +1,13 @@
-import classNames from 'classnames';
-import React from 'react';
-import { Props, LOADING_TYPE } from './Loading.types';
-import { Dots, Skeleton, Spinner } from './components';
 import './Loading.scss';
 
+import classNames from 'classnames';
+import React from 'react';
+
+import { Dots, Skeleton, Spinner } from './components';
+import { LOADING_TYPE, Props } from './Loading.types';
+
 function Loading(props: Props) {
-  const {
-    className,
-    children,
-    rowNum = 1,
-    type = 'spinner',
-    fontSize,
-    size = 'medium',
-    ...rest
-  } = props;
+  const { className, children, rowNum = 1, type = 'spinner', fontSize, size = 'medium', ...rest } = props;
 
   const loadingClass = classNames(
     'loading',

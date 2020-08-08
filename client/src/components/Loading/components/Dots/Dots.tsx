@@ -1,6 +1,7 @@
-import React from 'react';
-import classNames from 'classnames';
 import './Dots.scss';
+
+import classNames from 'classnames';
+import React from 'react';
 
 type AttributesProps = React.HTMLAttributes<HTMLElement>;
 type Props = AttributesProps;

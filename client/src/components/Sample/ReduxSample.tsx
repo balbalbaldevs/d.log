@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Button } from '@/components';
 import { ReduxSampleActions } from '@/store/actions';
-import { UserSampleState } from './ReduxSample.types';
 import { AppState } from '@/store/store.types';
+
+import { UserSampleState } from './ReduxSample.types';
 
 // TODO redux 쓰는 법 익히게 되면 제거
 const ReduxSample: React.FC = () => {

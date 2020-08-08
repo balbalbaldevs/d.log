@@ -1,8 +1,9 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import loggerMiddleware from '../middlewares/logger';
+
 import monitorReducerEnhancer from '../enhancers/monitorReducers';
-import { AppState } from './store.types';
+import loggerMiddleware from '../middlewares/logger';
 import rootReducer from './reducers';
+import { AppState } from './store.types';
 
 export const configureAppStore = (preloadedState = {}) => {
   const store = configureStore({

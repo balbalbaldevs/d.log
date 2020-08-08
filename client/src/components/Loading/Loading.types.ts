@@ -1,5 +1,6 @@
 import React from 'react';
-import { FontSizeType, SizeType } from '../../types';
+
+import { FontSizeType, SizeType } from '@/types';
 
 export enum LOADING_TYPE {
   SKELETON = 'skeleton',
@@ -16,4 +17,4 @@ type CustomProps = {
   size?: SizeType;
 };
 
-export type Props = AttributesProps & CustomProps;
+export type Props = Omit<AttributesProps, 'size'> & CustomProps;

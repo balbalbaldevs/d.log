@@ -1,26 +1,25 @@
 // enums
 
-export enum Direction {
+export enum DIRECTION {
   HORIZONTAL = 'horizontal',
   VERTICAL = 'vertical',
 }
 
-export enum PosX {
+export enum POSX {
   LEFT = 'left',
   CENTER = 'center',
   RIGHT = 'right',
   TOP = 'top',
   BOTTOM = 'bottom',
-  CENTR = 'center',
 }
 
-export enum PosY {
+export enum POSY {
   TOP = 'top',
   BOTTOM = 'bottom',
   CENTER = 'center',
 }
 
-export enum Size {
+export enum SIZE {
   SMALL = 'small',
   MEDIUM = 'medium',
   LARGE = 'large',
