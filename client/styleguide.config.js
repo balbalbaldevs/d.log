@@ -34,13 +34,7 @@ module.exports = {
   ],
   resolver: jsParser.resolver.findAllComponentDefinitions,
   propsParser: tsParser.withCustomConfig('./tsconfig.json', {
-    propFilter(prop) {
-      if (prop.parent) {
-        return !prop.parent.fileName.includes('node_modules');
-      }
-
-      return true;
-    },
+    propFilter: (prop) => prop.parent == null ? true : !prop.parent.fileName.includes('node_modules')
   }).parse,
   webpackConfig: require('react-scripts/config/webpack.config'),
 };
