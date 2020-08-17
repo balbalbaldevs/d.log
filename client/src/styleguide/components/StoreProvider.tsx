@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureAppStore as configureStore } from '../../store';
+
+import { configureAppStore as configureStore } from '@/store';
 
 const store = configureStore();
 

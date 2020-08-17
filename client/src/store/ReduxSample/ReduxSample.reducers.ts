@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import { ReduxSampleActions } from '../actions';
 import { ReduxSampleState } from './ReduxSample.types';
 

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,7 +21,17 @@
 
     "jsx": "react"
   },
-  "interface-name": [true, "always-prefix"],
-  "include": ["src"],
-  "exclude": ["./node_modules", "./public", "./build"]
+  "interface-name": [
+    true,
+    "always-prefix"
+  ],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./public",
+    "./build"
+  ],
+  "extends": "./base-tsconfig.json"
 }

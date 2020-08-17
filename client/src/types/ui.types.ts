@@ -1,14 +1,11 @@
-import { Direction, PosY, PosX, Size } from './enums';
-
 // in alphabetical order
 
-export type DirectionType = keyof Direction;
+export type DirectionType = 'horizontal' | 'vertical';
 
 export type FontSizeType = 1 | 2 | 3 | 4 | 5;
 
-export type PosXType = keyof PosX;
+export type PosXType = 'bottom' | 'center' | 'left' | 'right' | 'top';
 
-export type PosYType = keyof PosY;
+export type PosYType = 'bottom' | 'center' | 'top';
 
-export type SizeType = keyof Size;
-
+export type SizeType = 'small' | 'medium' | 'large';

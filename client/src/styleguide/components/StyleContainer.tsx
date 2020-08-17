@@ -1,7 +1,11 @@
-import React from 'react';
-import classNames from 'classnames';
+import 'antd/dist/antd.css';
 import './StyleContainer.scss';
-import { DirectionType, PosXType, PosYType } from '../../types/ui.types';
+import { DIRECTION } from '@/types/enums';
+
+import classNames from 'classnames';
+import React from 'react';
+
+import { DirectionType, PosXType, PosYType } from '@/types/ui.types';
 
 type AttributeProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -15,7 +19,7 @@ const StyleContainer: React.FC<Props> = ({ direction = 'vertical', posX = 'left'
   <div
     {...rest}
     className={classNames('style-container', `position-${posX}-${posY}`, {
-      column: direction === 'vertical',
+      column: direction === DIRECTION.VERTICAL,
     })}
   />
 );

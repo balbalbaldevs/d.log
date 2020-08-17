@@ -1,5 +1,6 @@
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
+
 import Loading from './Loading';
 import { LOADING_TYPE } from './Loading.types';
 
@@ -19,7 +20,11 @@ describe('test loading component', () => {
   });
 
   it('should render loading skeleton', () => {
-    const wrapper = mount(<Loading type={LOADING_TYPE.SKELETON} rowNum={3}>loading</Loading>);
+    const wrapper = mount(
+      <Loading type={LOADING_TYPE.SKELETON} rowNum={3}>
+        loading
+      </Loading>,
+    );
 
     expect(wrapper.prop('rowNum')).toBe(3);
     expect(wrapper.childAt(0).hasClass('loading--skeleton')).toBe(true);

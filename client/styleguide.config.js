@@ -1,3 +1,4 @@
+const path = require('path');
 const jsParser = require('react-docgen');
 const tsParser = require('react-docgen-typescript');
 
@@ -6,6 +7,10 @@ module.exports = {
   components: 'src/components/**/*.tsx',
   skipComponentsWithoutExample: true,
   pagePerSection: true,
+  moduleAliases: {
+    '@styleguide': path.resolve(__dirname, 'src/styleguide/components'),
+    '@': path.resolve(__dirname, 'src'),
+  },
   sections: [
     {
       name: 'Introduction',
@@ -29,13 +34,7 @@ module.exports = {
   ],
   resolver: jsParser.resolver.findAllComponentDefinitions,
   propsParser: tsParser.withCustomConfig('./tsconfig.json', {
-    propFilter(prop) {
-      if (prop.parent) {
-        return !prop.parent.fileName.includes('node_modules');
-      }
-
-      return true;
-    },
+    propFilter: (prop) => prop.parent == null ? true : !prop.parent.fileName.includes('node_modules')
   }).parse,
   webpackConfig: require('react-scripts/config/webpack.config'),
 };
