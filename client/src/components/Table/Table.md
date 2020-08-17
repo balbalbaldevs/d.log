@@ -1,12 +1,15 @@
 ---
-상세한 `Table` 컴포넌트 props 리스트는 (여기)[https://ant.design/components/table/]에서 확인.
 
-----
+> 상세한 `Table` 컴포넌트 props 리스트는 (여기)[https://ant.design/components/table/]에서 확인.
+
+---
+
+<br /><br /><br />
 
 ### 기본 예시:
 
 ```js
-import StyleContainer from '../../styleguide/components/StyleContainer';
+import StyleContainer from '@styleguide/StyleContainer';
 
 const data = [
   {
@@ -71,7 +74,7 @@ const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    render: text => <a href="#/Components/Table">{text}</a>,
+    render: (text) => <a href="#/Components/Table">{text}</a>,
   },
   {
     title: 'Age',
@@ -84,20 +87,15 @@ const columns = [
 ];
 
 <StyleContainer>
-  <Table 
-    rowKey="id" 
-    data={data} 
-    columns={columns}
-    scrollY={300}
-    scrollX={500}
-    style={{ width: 250 }} 
-  />
-</StyleContainer>
+  <Table rowKey="id" data={data} columns={columns} scrollY={300} scrollX={500} style={{ width: 250 }} />
+</StyleContainer>;
 ```
 
 테이블 컴럼을 JSX 안에서 사용하는 예시:
 
 ```js
+import StyleContainer from '@styleguide/StyleContainer';
+
 const data = [
   {
     id: '1',
@@ -122,11 +120,11 @@ const data = [
   },
 ];
 
-<>
-<Table data={data} rowKey="id" border={true}>
-  <Table.Column dataIndex="name" title="Name" />
-  <Table.Column dataIndex="age" title="Age" />
-  <Table.Column dataIndex="address" title="Address" />
-</Table>
-</>
+<StyleContainer>
+  <Table data={data} rowKey="id" border={true}>
+    <Table.Column dataIndex="name" title="Name" />
+    <Table.Column dataIndex="age" title="Age" />
+    <Table.Column dataIndex="address" title="Address" />
+  </Table>
+</StyleContainer>;
 ```
