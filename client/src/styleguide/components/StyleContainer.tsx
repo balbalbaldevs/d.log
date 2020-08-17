@@ -1,3 +1,4 @@
+import 'antd/dist/antd.css';
 import './StyleContainer.scss';
 import { DIRECTION } from '@/types/enums';
 
