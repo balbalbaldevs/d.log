@@ -1,6 +1,5 @@
 const { addBabelPlugin, override, fixBabelImports, addWebpackAlias } = require('customize-cra');
 const path = require('path');
-// const revireReactHotLoader = require('react-app-rewire-hot-loader-for-customize-cra');
 
 module.exports = override(
   addBabelPlugin('react-hot-loader/babel'),

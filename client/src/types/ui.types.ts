@@ -1,5 +1,3 @@
-import { DIRECTION, POSX, POSY, SIZE } from './enums';
-
 // in alphabetical order
 
 export type DirectionType = 'horizontal' | 'vertical';
