@@ -47,6 +47,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/button-has-type": "off",
 
+    "@typescript-eslint/jsx-closing-bracket-location": [1, "tag-aligned"],
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off"
   },

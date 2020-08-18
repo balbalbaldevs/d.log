@@ -3,6 +3,7 @@
 .skeleton {
   --skeleton--multiple-size: 100%;
 
+  overflow: hidden;
   background: #e2e0e3;
   width: 100%;
   height: var(--skeleton--multiple-size);
