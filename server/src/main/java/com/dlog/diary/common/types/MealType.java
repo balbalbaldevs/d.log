@@ -1,6 +1,6 @@
 package com.dlog.diary.common.types;
 
-public enum MealType {
+public enum MealType implements DlogEnum {
 	BREAKFAST("아침"), LUNCH("점심"), DINNER("저녁"), SNACK("간식");
 
 	private final String description;

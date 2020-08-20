@@ -1,6 +1,6 @@
 package com.dlog.diary.common.types;
 
-public enum UserLoginType {
+public enum UserLoginType implements DlogEnum {
 	KAKAOTALK("카카오톡"),
 	FACEBOOK("페이스북"),
 	EMAIL("이메일");

@@ -1,6 +1,6 @@
 package com.dlog.diary.common.types;
 
-public enum GoalStateType {
+public enum GoalStateType implements DlogEnum {
 	TO_DO("커밍쑨!"),
 	IN_PROGRESS("진행중"),
 	SUCCESS("성공!"),
