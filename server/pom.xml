@@ -108,6 +108,29 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<plugin>
+			    <groupId>cz.habarta.typescript-generator</groupId>
+			    <artifactId>typescript-generator-maven-plugin</artifactId>
+			    <version>2.25.695</version>
+			     <executions>
+			        <execution>
+			            <id>generate</id>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			            <phase>package</phase>
+			        </execution>
+			    </executions>
+			    <configuration>
+			        <jsonLibrary>jackson2</jsonLibrary>
+			        <classPatterns>
+	                    <pattern>com.dlog.diary.common.types.*</pattern>
+	                    <pattern>com.dlog.diary.*.dto.*</pattern>
+	                </classPatterns>
+			        <outputFile>../client/src/types/rest.d.ts</outputFile>
+			        <outputKind>module</outputKind>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
