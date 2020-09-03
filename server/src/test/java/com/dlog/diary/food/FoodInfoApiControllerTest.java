@@ -1,6 +1,7 @@
 package com.dlog.diary.food;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +12,9 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Collections;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -26,10 +29,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.dlog.diary.food.dto.ErrorFoodNutritionServiceResponse;
 import com.dlog.diary.food.dto.FoodNutritionServiceResponse;
@@ -42,21 +48,15 @@ public class FoodInfoApiControllerTest {
 
 	static String URL_ADDRESS = "http://apis.data.go.kr/1470000/FoodNtrIrdntInfoService/getFoodNtrItdntList";
 
-	static StringBuilder urlBuilder = new StringBuilder(URL_ADDRESS); /* URL */
-	static {
+	@Test
+	public void exampleFromTheSite() throws IOException {
+		StringBuilder urlBuilder = new StringBuilder(URL_ADDRESS); /* URL */
 		urlBuilder.append("?" + encode("desc_kor") + "=" + encode("바나나칩")); /* 식품이름 */
 		urlBuilder.append("&" + encode("pageNo") + "=" + encode("1")); /* 페이지번호 */
 		urlBuilder.append("&" + encode("numOfRows") + "=" + encode("2")); /* 한 페이지 결과 수 */
-		urlBuilder.append("&" + encode("bgn_year") + "=" + encode("")); /* 구축년도 */
-		urlBuilder.append("&" + encode("animal_plant") + "=" + encode("")); /* 가공업체 */
-		urlBuilder.append("&" + encode("ServiceKey") + "="
-				+ "EI4x6KTdEA3w3qmHKf8d015fjCT7pb%2BU0g15MvgBD77sPl%2FKwazneXBO1%2FYQUsAhqdmOv2LlsAlSYRm%2FLTm3OA%3D%3D"); /* Service Key */
-	}
-
-	@Test
-	public void exampleFromTheSite() throws IOException {
+		urlBuilder.append("&" + encode("ServiceKey") + "=" + encode(SERVICE_KEY)); /* Service Key */
+		
 		URL url = new URL(urlBuilder.toString());
-
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
@@ -76,12 +76,11 @@ public class FoodInfoApiControllerTest {
 		rd.close();
 		conn.disconnect();
 
-		System.out.println(sb.toString());
 		assertNotNull(sb.toString());
 		assertTrue(sb.toString().indexOf("<response><header><resultCode>00</resultCode><resultMsg>NORMAL SERVICE.</resultMsg>") == 0);
 	}
 
-	private static String encode(String text) {
+	private String encode(String text) {
 		try {
 			return URLEncoder.encode(text, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -92,19 +91,77 @@ public class FoodInfoApiControllerTest {
 
 	@Test
 	public void testUsingRestTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+		DefaultUriBuilderFactory defaultUriBuilderFactory = new DefaultUriBuilderFactory();
+		defaultUriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+		restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
+
 		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+		headers.setContentType(MediaType.APPLICATION_XML);
+
+		String descKor = "바나나칩";
+		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
+				.queryParam("ServiceKey", encode(SERVICE_KEY))
+				.queryParam("desc_kor", encode(descKor))
+				.queryParam("pageNo", 1)
+				.queryParam("numOfRows", 2);
+
+		try {
+			ResponseEntity<FoodNutritionServiceResponse> test = restTemplate.exchange(builder.build(false).toUriString(), HttpMethod.GET, new org.springframework.http.HttpEntity<>(headers),
+					FoodNutritionServiceResponse.class);
+			
+			assertEquals(HttpStatus.OK, test.getStatusCode());
+			assertEquals(descKor, test.getBody().getBody().getItems().get(0).getDESC_KOR());
+		} catch (Exception e) {
+			ResponseEntity<ErrorFoodNutritionServiceResponse> response = restTemplate.exchange(builder.build(false).toUriString(), HttpMethod.GET,
+					new org.springframework.http.HttpEntity<>(headers), ErrorFoodNutritionServiceResponse.class);
+
+			System.out.println(response);
+			assertTrue(false);
+		}
+	}
+
+	@Test
+	public void testUsingRestTemplateForError() {
+		StringBuilder urlBuilder = new StringBuilder(URL_ADDRESS); /* URL */
+		urlBuilder.append("?" + encode("desc_kor") + "=" + encode("바나나칩")); /* 식품이름 */
+		urlBuilder.append("&" + encode("pageNo") + "=" + encode("1")); /* 페이지번호 */
+		urlBuilder.append("&" + encode("numOfRows") + "=" + encode("2")); /* 한 페이지 결과 수 */
+		urlBuilder.append("&" + encode("ServiceKey") + "=" + SERVICE_KEY); /* Service Key */
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<ErrorFoodNutritionServiceResponse> response = restTemplate.getForEntity(urlBuilder.toString(), ErrorFoodNutritionServiceResponse.class);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("30", response.getBody().getCmmMsgHeader().getReturnReasonCode());
+
+		try {
+			restTemplate.exchange(urlBuilder.toString(), HttpMethod.GET, new org.springframework.http.HttpEntity<>(headers),
+					FoodNutritionServiceResponse.class);
+
+			assertTrue(false);
+
+		} catch (Exception e) {
+			ResponseEntity<ErrorFoodNutritionServiceResponse> test = restTemplate.exchange(urlBuilder.toString(), HttpMethod.GET,
+					new org.springframework.http.HttpEntity<>(headers), ErrorFoodNutritionServiceResponse.class);
+
+			assertEquals(HttpStatus.OK, test.getStatusCode());
+		}
 	}
 
 	@Test
 	public void testUsingHttpClient() throws IOException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
+
+			StringBuilder urlBuilder = new StringBuilder(URL_ADDRESS); /* URL */
+			urlBuilder.append("?" + encode("desc_kor") + "=" + encode("바나나칩")); /* 식품이름 */
+			urlBuilder.append("&" + encode("pageNo") + "=" + encode("1")); /* 페이지번호 */
+			urlBuilder.append("&" + encode("numOfRows") + "=" + encode("2")); /* 한 페이지 결과 수 */
+			urlBuilder.append("&" + encode("ServiceKey") + "=" + SERVICE_KEY); /* Service Key */
+			
 			HttpGet httpGet = new HttpGet(urlBuilder.toString());
 			httpGet.addHeader("accept", "application/xml");
 
@@ -123,5 +180,48 @@ public class FoodInfoApiControllerTest {
 		} finally {
 			httpClient.close();
 		}
+	}
+
+	@Test
+	public void testDecode() throws Exception {
+		String s = "EI4x6KTdEA3w3qmHKf8d015fjCT7pb%2BU0g15MvgBD77sPl%2FKwazneXBO1%2FYQUsAhqdmOv2LlsAlSYRm%2FLTm3OA%3D%3D";
+		System.out.println(s);
+
+		String decodeS = URLDecoder.decode(s, "UTF-8");
+		System.out.println(decodeS);
+
+		String encode = URLEncoder.encode(decodeS, "UTF-8");
+		System.out.println(encode);
+
+		assertEquals(s, encode);
+	}
+
+	@Test
+	public void compareUri() {
+		String descKor = "바나나칩";
+		int pageNo = 1;
+		int numOfRows = 2;
+		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
+				.queryParam("desc_kor", encode(descKor))
+				.queryParam("pageNo", pageNo)
+				.queryParam("numOfRows", numOfRows)
+				.queryParam("ServiceKey", SERVICE_KEY);
+
+		assertNotEquals(builder.toUriString(), builder.build(false).toUriString());
+
+		StringBuilder urlBuilder = new StringBuilder(URL_ADDRESS); /* URL */
+		urlBuilder.append("?" + encode("desc_kor") + "=" + encode(descKor)); /* 식품이름 */
+		urlBuilder.append("&" + encode("pageNo") + "=" + encode(pageNo + "")); /* 페이지번호 */
+		urlBuilder.append("&" + encode("numOfRows") + "=" + encode(numOfRows + "")); /* 한 페이지 결과 수 */
+		urlBuilder.append("&" + encode("ServiceKey") + "=" + encode(SERVICE_KEY)); /* Service Key */
+		
+		builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
+				.queryParam("desc_kor", encode(descKor))
+				.queryParam("pageNo", pageNo)
+				.queryParam("numOfRows", numOfRows)
+				.queryParam("ServiceKey", encode(SERVICE_KEY));
+
+		assertEquals(urlBuilder.toString(), builder.build(false).toUriString());
 	}
 }
