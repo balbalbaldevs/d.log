@@ -41,12 +41,13 @@ import com.dlog.diary.food.dto.ErrorFoodNutritionServiceResponse;
 import com.dlog.diary.food.dto.FoodNutritionServiceResponse;
 
 @SpringBootTest
-public class FoodInfoApiControllerTest {
+public class GoverFoodAPITest {
 
 	@Value("${food.api.key}")
 	private String SERVICE_KEY;
 
-	private String URL_ADDRESS = "http://apis.data.go.kr/1470000/FoodNtrIrdntInfoService/getFoodNtrItdntList";
+	@Value("${food.api.url}")
+	private String URL_ADDRESS;
 
 	@Test
 	public void exampleFromTheSite() throws IOException {
@@ -55,7 +56,7 @@ public class FoodInfoApiControllerTest {
 		urlBuilder.append("&" + Tools.encode("pageNo") + "=" + Tools.encode("1")); /* 페이지번호 */
 		urlBuilder.append("&" + Tools.encode("numOfRows") + "=" + Tools.encode("2")); /* 한 페이지 결과 수 */
 		urlBuilder.append("&" + Tools.encode("ServiceKey") + "=" + Tools.encode(SERVICE_KEY)); /* Service Key */
-		
+
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -92,17 +93,14 @@ public class FoodInfoApiControllerTest {
 		headers.setContentType(MediaType.APPLICATION_XML);
 
 		String descKor = "바나나칩";
-		
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
-				.queryParam("ServiceKey", Tools.encode(SERVICE_KEY))
-				.queryParam("desc_kor", Tools.encode(descKor))
-				.queryParam("pageNo", 1)
-				.queryParam("numOfRows", 2);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS).queryParam("ServiceKey", Tools.encode(SERVICE_KEY))
+				.queryParam("desc_kor", Tools.encode(descKor)).queryParam("pageNo", 1).queryParam("numOfRows", 2);
 
 		try {
-			ResponseEntity<FoodNutritionServiceResponse> test = restTemplate.exchange(builder.build(false).toUriString(), HttpMethod.GET, new org.springframework.http.HttpEntity<>(headers),
-					FoodNutritionServiceResponse.class);
-			
+			ResponseEntity<FoodNutritionServiceResponse> test = restTemplate.exchange(builder.build(false).toUriString(), HttpMethod.GET,
+					new org.springframework.http.HttpEntity<>(headers), FoodNutritionServiceResponse.class);
+
 			assertEquals(HttpStatus.OK, test.getStatusCode());
 			assertEquals(descKor, test.getBody().getBody().getItems().get(0).getDESC_KOR());
 		} catch (Exception e) {
@@ -121,7 +119,7 @@ public class FoodInfoApiControllerTest {
 		urlBuilder.append("&" + Tools.encode("pageNo") + "=" + Tools.encode("1")); /* 페이지번호 */
 		urlBuilder.append("&" + Tools.encode("numOfRows") + "=" + Tools.encode("2")); /* 한 페이지 결과 수 */
 		urlBuilder.append("&" + Tools.encode("ServiceKey") + "=" + SERVICE_KEY); /* Service Key */
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -138,7 +136,7 @@ public class FoodInfoApiControllerTest {
 			if (e.getMessage().indexOf("OpenAPI_ServiceResponse") > -1) {
 				ResponseEntity<ErrorFoodNutritionServiceResponse> test = restTemplate.exchange(urlBuilder.toString(), HttpMethod.GET,
 						new org.springframework.http.HttpEntity<>(headers), ErrorFoodNutritionServiceResponse.class);
-				
+
 				assertEquals(HttpStatus.OK, test.getStatusCode());
 			} else {
 				e.printStackTrace();
@@ -157,7 +155,7 @@ public class FoodInfoApiControllerTest {
 			urlBuilder.append("&" + Tools.encode("pageNo") + "=" + Tools.encode("1")); /* 페이지번호 */
 			urlBuilder.append("&" + Tools.encode("numOfRows") + "=" + Tools.encode("2")); /* 한 페이지 결과 수 */
 			urlBuilder.append("&" + Tools.encode("ServiceKey") + "=" + SERVICE_KEY); /* Service Key */
-			
+
 			HttpGet httpGet = new HttpGet(urlBuilder.toString());
 			httpGet.addHeader("accept", "application/xml");
 
@@ -197,7 +195,7 @@ public class FoodInfoApiControllerTest {
 		String descKor = "바나나칩";
 		int pageNo = 1;
 		int numOfRows = 2;
-		
+
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
 				.queryParam("desc_kor", Tools.encode(descKor))
 				.queryParam("pageNo", pageNo)
@@ -211,7 +209,7 @@ public class FoodInfoApiControllerTest {
 		urlBuilder.append("&" + Tools.encode("pageNo") + "=" + Tools.encode(pageNo + "")); /* 페이지번호 */
 		urlBuilder.append("&" + Tools.encode("numOfRows") + "=" + Tools.encode(numOfRows + "")); /* 한 페이지 결과 수 */
 		urlBuilder.append("&" + Tools.encode("ServiceKey") + "=" + Tools.encode(SERVICE_KEY)); /* Service Key */
-		
+
 		builder = UriComponentsBuilder.fromHttpUrl(URL_ADDRESS)
 				.queryParam("desc_kor", Tools.encode(descKor))
 				.queryParam("pageNo", pageNo)
