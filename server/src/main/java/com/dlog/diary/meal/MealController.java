@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dlog.diary.common.domain.meal.DailyMeals;
@@ -17,8 +16,6 @@ import com.dlog.diary.common.dto.CommonResponse;
 import com.dlog.diary.meal.dto.AddDailyMealsRequest;
 import com.dlog.diary.meal.dto.DailyMealResponse;
 import com.dlog.diary.meal.dto.EditDailyMealsRequest;
-import com.dlog.diary.meal.dto.GoveFoodsResponse;
-import com.dlog.diary.meal.service.MealMockDataService;
 import com.dlog.diary.meal.service.MealService;
 
 import io.swagger.annotations.Api;
@@ -28,12 +25,10 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @Api("식단 관련 API")
 public class MealController {
-	private MealMockDataService mockService;
 	private MealService mealService;
 	private String uniqueId = "test";
 
-	public MealController(MealMockDataService mockService, MealService mealService) {
-		this.mockService = mockService;
+	public MealController(MealService mealService) {
 		this.mealService = mealService;
 	}
 
@@ -53,17 +48,6 @@ public class MealController {
 			response.setEmpty();
 		}
 		return response;
-	}
-
-	// TODO API mapping
-	@GetMapping("/foods")
-	@ApiOperation(value = "식품 조회", notes = "공공데이터포털 API를 활용한 식품 조회. totalCount가 포털에서 내려주지 않는 오류 있음.")
-	public GoveFoodsResponse getFoods(
-			@ApiParam(name = "foodName", value = "식품 이름", required = true, example = "바나나칩") @RequestParam String foodName,
-			@ApiParam(name = "pageNo", value = "페이지 번호", required = true, example = "1") @RequestParam String pageNo,
-			@ApiParam(name = "numOfRows", value = "검색 건수", required = true, example = "10") @RequestParam String numOfRows)
-			throws Exception {
-		return mockService.getFoods(foodName, pageNo, numOfRows);
 	}
 
 	@PostMapping("/diaries/{diaryDay}/meals")
@@ -140,5 +124,4 @@ public class MealController {
 		response.ok();
 		return response;
 	}
-
 }

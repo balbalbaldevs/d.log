@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(value = { "com.dlog.diary.*" })
+@MapperScan(value = { "com.dlog.diary.exercise",  "com.dlog.diary.meal", "com.dlog.diary.user", "com.dlog.diary.sample"})
 public class MyBatisConfig {
 
 	@Autowired
